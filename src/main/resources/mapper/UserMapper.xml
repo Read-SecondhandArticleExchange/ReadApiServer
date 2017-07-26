@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?> <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Read.Domain.User.UserMapper">
+
+    <select id="selectAll" resultType="Read.Domain.User.User">
+        SELECT *
+        FROM read.User
+    </select>
+
+    <select id="selectById" parameterType="java.lang.Long" resultType="Read.Domain.User.User">
+        SELECT *
+        FROM read.User
+        WHERE userId = #{userId}
+    </select>
+
+    <select id="selectByAddress" parameterType="java.lang.Long" resultType="Read.Domain.User.AddressDto">
+        SELECT address
+        FROM read.User
+        WHERE userId = #{userId}
+    </select>
+
+    <update id="updateAddress">
+        UPDATE read.User
+        SET address = #{address}
+        WHERE userId = #{userId}
+    </update>
+
+    <insert id="firstLogin">
+        insert into read.User(userId,nickName,profile_url,book_point)
+        VALUES (#{kakaoId},#{profileName},#{profileUrl},0);
+    </insert>
+    <update id="updateProfileAndNickName">
+        update read.User
+        SET
+          profile_url=#{profileUrl},
+          nickName=#{profileName}
+        where userId=#{kakaoId};
+    </update>
+
+    <select id="confirmId" resultType="Read.Domain.User.User">
+        select userId,nickName,profile_url as profileUrl,address
+        from read.User
+        where userId=#{userId}
+    </select>
+    <update id="userCreate">
+      update read.User
+      SET
+        latitude=#{latitude},longitude=#{longitude},address=#{address},userName=#{userName},phoneNumber=#{phoneNumber}
+      WHERE userId=#{userId};
+    </update>
+</mapper>
