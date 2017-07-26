@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Read.Domain.Book.BookMapper">
+
+    <select id="selectAll" resultType="Read.Domain.Book.Book">
+        SELECT *
+        FROM Book
+    </select>
+
+    <insert id="insert" parameterType="Read.Domain.Book.InsertDto">
+      CALL read.bookInsert(#{userId},#{author},#{translator},#{publisher},#{title},#{category},#{coverUrl},#{isbn},#{latitude},#{longitude})
+    </insert>
+
+</mapper>

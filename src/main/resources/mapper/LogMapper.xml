@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?> <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Read.Domain.Log.LogMapper">
+
+
+    <select id="LogStatusByUserId" resultType="Read.Domain.Log.LogStatusByUserIdDto">
+        SELECT u.book_point as 'virtualBook',COUNT(IF(status = 1,status,null)) as 'holdBook',COUNT(IF(status = 2,status,null)) as 'shareBook',COUNT(IF(status = 3,status,null)) as 'sendBook'
+        ,COUNT(IF(status = 4,status,null)) as 'requestBook',COUNT(IF(status = 5,status,null)) as 'receiveBook'
+        from read.Log l join read.user u
+        on l.userId= u.userId
+        where l.userId=#{id}
+    </select>
+    <select id ="selectByUserId" resultType="Read.Domain.Book.Book">
+        SELECT b.*
+        FROM read.Book b join read.Log l
+        on b.bookId  = l.bookId
+        where l.userId=#{id}
+    </select>
+    <select id="selectByStatusIdAndUserId" resultType="Read.Domain.Book.Book">
+        SELECT b.*
+        FROM read.Book b join read.Log l
+        on b.bookId  = l.bookId
+        where l.userId=#{userId} and l.status=#{status};
+    </select>
+
+    <select id="myBookLog" parameterType="java.lang.Long" resultType="Read.Domain.ResponseDto.MyBookLogResponseDto">
+        select b.bookId,b.cover_url as coverUrl,b.title,b.publisher,b.publication,b.category,l.status,
+		  (
+			SELECT COUNT(*)
+			FROM read.Log a
+			where a.bookId =l.bookId
+		  ) AS totalCount
+	    from read.Book b join read.Log l
+	    on b.bookId = l.bookId
+	    where l.userId = #{userId}
+    </select>
+
+    <select id="selectBySequence" parameterType="java.util.Map" resultType="java.lang.Long">
+        CALL read.mySequence(#{bookId},#{userId})
+    </select>
+</mapper>
