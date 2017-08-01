@@ -1,13 +1,17 @@
 package Read.Domain.Book;
 
 import Read.Domain.EBook.*;
+import Read.Domain.Log.Log;
 import Read.Domain.Log.LogService;
 import Read.Domain.ResponseDto.BookResponseDto;
 import Read.Domain.ResponseDto.RequestBookDto;
+import Read.Domain.User.User;
+import Read.Domain.User.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,6 +33,9 @@ public class BookServiceImpl implements BookService{
     @Autowired
     private LogService logService;
 
+    @Autowired
+    private UserService userService;
+
     @Override
     public List<Book> selectAll(){
         return bookMapper.selectAll();
@@ -40,6 +47,7 @@ public class BookServiceImpl implements BookService{
     }
 
     @Override
+    @Transactional(readOnly = true)
     public void insert(String isbn,Long userId){
         InsertDto dto = InsertDto.of(userId,eBookService.search(isbn).getChannel().getItem().get(0),0.0,0.0);
         bookMapper.insert(dto);
@@ -47,7 +55,20 @@ public class BookServiceImpl implements BookService{
 
     @Override
     public List<RequestBookDto> requestSearch(String content){
+        return bookMapper.requestBook(content);
+    }
 
-        return null;
+    @Override
+    public DetailBookInfo detailBook(String bookId){
+        return bookMapper.detailBook(bookId);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public void request(String isbn, Long userId){
+        Log log = logService.selectByIsbn(isbn);
+        User user = userService.findOne(userId);
+        logService.updateByRequest(log);
+        logService.insert(log.getBookId(),user);
     }
 }

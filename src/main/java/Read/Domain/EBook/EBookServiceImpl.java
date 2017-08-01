@@ -37,7 +37,7 @@ public class EBookServiceImpl implements EBookService{
         url.append("&searchType=title").append("&sort=accu");
         url.append("&output=json");
         EBook list = restTemplate.getForObject(url.toString(),EBook.class);
-
+        logger.info("item List : " + list.getChannel().getItem());
         return list;
     }
 

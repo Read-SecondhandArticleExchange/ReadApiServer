@@ -13,4 +13,19 @@
       CALL read.bookInsert(#{userId},#{author},#{translator},#{publisher},#{title},#{category},#{coverUrl},#{isbn},#{latitude},#{longitude})
     </insert>
 
+    <select id="detailBook" parameterType="java.lang.String" resultType="Read.Domain.Book.DetailBookInfo">
+        SELECT cover_url AS coverUrl, title, publisher, author, publication
+        FROM read.Book
+        WHERE bookId = #{bookId}
+    </select>
+
+    <select id="requestBook" parameterType="java.lang.String" resultType="Read.Domain.ResponseDto.RequestBookDto">
+        select b.title, b.author, b.publisher, b.publication,b.isbn, b.cover_url AS coverUrl , (SELECT COUNT(*)
+																			FROM read.Log a join read.Book c
+																			ON a.bookId = c.bookId
+																			WHERE (c.author = #{content} OR c.title= #{content}) AND a.status=2) AS requestCount
+        FROM read.Log l JOIN read.Book b
+        ON l.bookId = b.bookId
+        WHERE (b.author = #{content} OR b.title = #{content}) AND l.status=2
+    </select>
 </mapper>

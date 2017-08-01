@@ -3,13 +3,14 @@ package Read;
 import com.google.code.geocoder.Geocoder;
 import com.google.code.geocoder.GeocoderRequestBuilder;
 import com.google.code.geocoder.model.*;
+import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 
 /**
  * Created by seungki on 2017-07-25.
  */
-
+@Component
 //위도 경도
 public class GeoCoding {
     public  Float[] geoCoding(String location) throws Exception{
