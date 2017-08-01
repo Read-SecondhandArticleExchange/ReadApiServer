@@ -1,6 +1,7 @@
 package Read.Domain.User;
 
 import Read.Domain.Log.LogMapper;
+import Read.Domain.ResponseDto.RequestUser;
 import Read.Domain.ResponseDto.ResponseDto;
 import Read.Domain.ResponseDto.UserResponseDto;
 import Read.GeoCoding;
@@ -29,6 +30,9 @@ public class UserServiceImpl implements UserService{
     @Autowired
     private LogMapper logMapper;
 
+    @Autowired
+    private GeoCoding geoCoding;
+
     @Override
     public List<User> selectAll(){
         return userMapper.selectAll();
@@ -53,8 +57,9 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public void AddressUpdate(Long userId,String address) {
-        userMapper.updateAddress(userId, address);
+    public void AddressUpdate(Long userId,String address) throws Exception{
+        Float[] cords = geoCoding.geoCoding(address);
+        userMapper.updateAddress(userId, address,(double)cords[0],(double)cords[1]);
     }
     @Transactional(readOnly = true)
     @Override
@@ -75,7 +80,6 @@ public class UserServiceImpl implements UserService{
     @Transactional(readOnly = true)
     @Override
     public ResponseDto signUpUser(UserCreateDto userCreateDto) throws Exception{
-        GeoCoding geoCoding = new GeoCoding();
         Float [] cords=geoCoding.geoCoding(userCreateDto.getAddress());
         User user = new User();
         user.setAddress(userCreateDto.getAddress());
@@ -87,5 +91,16 @@ public class UserServiceImpl implements UserService{
         userMapper.userCreate(user);
         return ResponseDto.ofSuccess("SUCCESS");
 
+    }
+
+    @Override
+    public RequestUser requestUser(Long userId){
+        return userMapper.requestUser(userId);
+    }
+
+    @Override
+    public void update(Long userId, String name, String address, String phoneNumber) throws Exception{
+            Float [] cords = geoCoding.geoCoding(address);
+            userMapper.update(userId, name, address, phoneNumber,(double)cords[0],(double)cords[1]);
     }
 }

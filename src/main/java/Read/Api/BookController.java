@@ -2,20 +2,16 @@ package Read.Api;
 
 import Read.Domain.Book.Book;
 import Read.Domain.EBook.EBook;
-import Read.Domain.ResponseDto.BookResponseDto;
+import Read.Domain.ResponseDto.*;
 import Read.Domain.Book.BookService;
-import Read.Domain.ResponseDto.RequestBookDto;
-import Read.Domain.ResponseDto.ResponseDto;
+import Read.Domain.User.User;
 import Read.Domain.User.UserService;
 import io.swagger.annotations.*;
-import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpRequest;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.Collections;
 import java.util.List;
 
@@ -43,12 +39,12 @@ public class BookController {
 
     @ApiOperation(value="책 검색 api", notes = "책 검색 api")
     @RequestMapping(value= "search", method=RequestMethod.GET)
-    public @ResponseBody EBook search(
+    public @ResponseBody SearchResponseDto search(
             @ApiParam(value="검색 내용")
             @RequestParam("content")String content){
         logger.info("BookController search Method");
         try{
-            return bookService.search(content);
+            return SearchResponseDto.of(bookService.search(content));
         }catch(Exception e){
             logger.error("BookController search Method error" ,e.getMessage());
         }
@@ -78,7 +74,7 @@ public class BookController {
         return BookResponseDto.ofEmpty("책 등록 실패");
     }
 
-/*
+
     @ApiOperation(value="책 요청 검색 api" ,notes= "책 요청 검색 api")
     @RequestMapping(value="bookRequest", method = RequestMethod.GET)
     public List<RequestBookDto> bookRequest(
@@ -91,5 +87,44 @@ public class BookController {
         }
             return Collections.emptyList();
     }
-    */
+
+    @ApiOperation(value = "책 요청", notes = "책 요청")
+    @RequestMapping(value = "request", method = RequestMethod.GET)
+    public RequestUser request(
+            @ApiParam("유저아이디")
+            @RequestParam("userId") Long userId){
+        try{
+            return userService.requestUser(userId);
+        }catch(Exception e){
+            logger.error("/api/v1/book/request GET : " + e.getMessage());
+        }
+        return null;
+    }
+
+    @ApiOperation(value = "책 요청", notes = "책 요청")
+    @RequestMapping(value = "request", method = RequestMethod.POST)
+    public ResponseDto request(
+            @ApiParam(value="유저 아이디")
+            @RequestParam("userId") Long userId,
+            @ApiParam(value = "요청책 isbn")
+            @RequestParam("isbn") String isbn,
+            @ApiParam(value = "주소저장 여부")
+            @RequestParam("check") boolean check,
+            @ApiParam(value = "주소")
+            @RequestParam("address") String address,
+            @ApiParam(value="이름")
+            @RequestParam("name") String name,
+            @ApiParam(value="핸드폰번호")
+            @RequestParam("phoneNumber") String phoneNumber){
+        try{
+            if(check==true)
+                userService.update(userId, name,address,phoneNumber);
+            bookService.request(isbn,userId);
+            return ResponseDto.ofSuccess("책 요청 성공");
+        }catch(Exception e){
+            logger.error("/api/v1/book/request error : " + e.getMessage());
+        }
+        return ResponseDto.ofFail("실패");
+
+    }
 }

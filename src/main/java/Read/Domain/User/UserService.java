@@ -1,5 +1,6 @@
 package Read.Domain.User;
 
+import Read.Domain.ResponseDto.RequestUser;
 import Read.Domain.ResponseDto.ResponseDto;
 import Read.Domain.ResponseDto.UserResponseDto;
 
@@ -14,9 +15,11 @@ public interface UserService {
 
     User findOne(Long userId);
     AddressDto selectByAddress(Long userId);
-    void AddressUpdate(Long userId,String address);
+    void AddressUpdate(Long userId,String address) throws Exception;
 
     ResponseDto confirmUser(UserConfirmRequestDto userConfirmRequestDto);
     ResponseDto signUpUser(UserCreateDto userCreateDto) throws Exception;
 
+    RequestUser requestUser(Long userId);
+    void update(Long userId, String name, String address, String phoneNumber) throws Exception;
 }

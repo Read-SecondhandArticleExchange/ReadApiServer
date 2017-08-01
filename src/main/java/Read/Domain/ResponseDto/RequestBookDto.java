@@ -15,5 +15,6 @@ public class RequestBookDto {
     private String publisher;
     private String author;
     private String publication;
-    private Long ownerUserId;
+    private String isbn;
+    private Long requestCount;
 }

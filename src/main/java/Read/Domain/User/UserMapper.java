@@ -1,6 +1,7 @@
 package Read.Domain.User;
 
 import Read.Domain.HoldUser.HoldUser;
+import Read.Domain.ResponseDto.RequestUser;
 import org.apache.ibatis.annotations.Param;
 import org.mapstruct.Mapper;
 import org.springframework.stereotype.Repository;
@@ -17,11 +18,13 @@ public interface UserMapper {
     User selectById(Long userId);
 
     AddressDto selectByAddress(Long userId);
-    void updateAddress(@Param("userId") Long userId, @Param("address") String address);
+    void updateAddress(@Param("userId") Long userId, @Param("address") String address, @Param("latitude") double latitude, @Param("longitude") double longitude);
 
     User confirmId(Long userId);
     void firstLogin(UserConfirmRequestDto userConfirmRequestDto);
     void updateProfileAndNickName(UserConfirmRequestDto userConfirmRequestDto);
     void userCreate(User user);
 
+    RequestUser requestUser(Long userId);
+    void update(@Param("userId")Long userId, @Param("name") String name, @Param("address") String address, @Param("phoneNumber") String phoneNumber,@Param("latitude") double latitude,@Param("longitude") double longitude);
 }

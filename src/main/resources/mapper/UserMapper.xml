@@ -21,7 +21,10 @@
 
     <update id="updateAddress">
         UPDATE read.User
-        SET address = #{address}
+        SET
+          address = #{address},
+          latitude = #{latitude},
+          longitude = #{longitude}
         WHERE userId = #{userId}
     </update>
 
@@ -47,5 +50,22 @@
       SET
         latitude=#{latitude},longitude=#{longitude},address=#{address},userName=#{userName},phoneNumber=#{phoneNumber}
       WHERE userId=#{userId};
+    </update>
+
+    <select id="requestUser" resultType="Read.Domain.ResponseDto.RequestUser">
+        SELECT userName, phoneNumber, address
+        FROM read.User
+        WHERE userId = #{userId}
+    </select>
+
+    <update id="update">
+        UPDATE read.User
+        SET
+          userName=#{name},
+          address=#{address},
+          phoneNumber=#{phoneNumber},
+          latitude=#{latitude},
+          longitude=#{longitude}
+        WHERE userId=#{userId}
     </update>
 </mapper>

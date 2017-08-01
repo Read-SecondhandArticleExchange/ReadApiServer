@@ -1,5 +1,4 @@
 package Read.Domain.EBook;
-
 import lombok.Getter;
 import lombok.Setter;
 

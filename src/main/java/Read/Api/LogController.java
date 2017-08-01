@@ -4,6 +4,7 @@ import Read.Domain.Book.Book;
 import Read.Domain.Log.Log;
 import Read.Domain.Log.LogStatusByUserIdDto;
 import Read.Domain.Log.LogService;
+import Read.Domain.ResponseDto.DetailBookLogDto;
 import Read.Domain.ResponseDto.MyBookLogResponseDto;
 import Read.Domain.ResponseDto.ReadBookResponseDto;
 import io.swagger.annotations.Api;
@@ -68,5 +69,21 @@ public class LogController {
             logger.error("/api/v1/log/myBookLog error : " + e.getMessage());
         }
         return Collections.emptyList();
+    }
+
+    @ApiOperation(value = "상세 북로그", notes = "상세 북로그")
+    @RequestMapping(value = "detailBookLog", method = RequestMethod.GET)
+    public DetailBookLogDto detailBookLog(
+            @ApiParam(value = "유저 아이디")
+            @RequestParam("userId") Long userId,
+            @ApiParam(value = "책 아이디")
+            @RequestParam("bookId") String bookId){
+        logger.info("detailBookLog Controller");
+        try{
+            return logService.detailBookLog(bookId,userId);
+        }catch(Exception e){
+            logger.error("/api/v1/log/detailBookLog error : " + e.getMessage());
+        }
+        return null;
     }
 }

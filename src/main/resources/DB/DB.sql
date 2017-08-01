@@ -35,7 +35,8 @@ CREATE TABLE read.Log(
   `address` varchar(200) Not NULL,
   `latitude` double Not Null,
   `longitude` double Not Null,
-  `latest` DateTime Not NULL
+  `latest` DateTime Not NULL,
+  `sequence` Long default 1 Not Null
 );
 
 

@@ -1,8 +1,6 @@
 package Read.Domain.Book;
 
-import Read.Domain.EBook.Channel;
 import Read.Domain.EBook.EBook;
-import Read.Domain.ResponseDto.BookResponseDto;
 import Read.Domain.ResponseDto.RequestBookDto;
 
 import java.util.List;
@@ -15,4 +13,6 @@ public interface BookService {
     EBook search(String content);
     void insert(String isbn,Long userId);
     List<RequestBookDto> requestSearch(String content);
+    DetailBookInfo detailBook(String bookId);
+    void request(String isbn, Long userId);
 }

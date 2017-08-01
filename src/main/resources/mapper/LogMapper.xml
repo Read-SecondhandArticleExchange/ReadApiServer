@@ -37,6 +37,44 @@
     </select>
 
     <select id="selectBySequence" parameterType="java.util.Map" resultType="java.lang.Long">
-        CALL read.mySequence(#{bookId},#{userId})
+        SELECT sequence
+        FROM read.Log
+        WHERE bookId = #{bookId} AND userId = #{userId}
     </select>
+
+    <select id="detailBookLogList" parameterType="java.lang.String" resultType="Read.Domain.Log.LogUser">
+        SELECT u.nickName, l.latest, u.profile_url AS profileUrl
+        FROM read.Log l JOIN read.User u
+        ON l.userId = u.userId
+        WHERE l.bookId = #{bookId}
+        ORDER BY l.latest;
+    </select>
+
+    <select id = "countByBookId" resultType="java.lang.Long">
+        SELECT COUNT(sequence) AS totalCount
+        FROM read.Log
+        WHERE bookId = #{bookId}
+    </select>
+
+    <select id="selectByIsbn" resultType="Read.Domain.Log.Log">
+        SELECT l.userId, l.bookId, l.status, l.address, l.latitude, l.longitude, l.latest, l.sequence
+        FROM read.Log l JOIN read.Book b
+        ON l.bookId = b.bookId
+        WHERE b.isbn = #{isbn}
+        ORDER BY latest DESC
+        LIMIT 1
+    </select>
+
+    <update id="updateByRequest" parameterType="Read.Domain.Log.Log">
+        UPDATE read.Log
+        SET
+          status = 5
+        WHERE
+          bookId = #{bookId}
+    </update>
+
+    <insert id="insert">
+        INSERT INTO read.Log(userId,bookId,status,address,latitude,longitude,latest,sequence)
+        VALUES(#{user.userId},#{bookId},6,#{user.address},#{user.latitude},#{user.longitude},NOW(),#{sequence})
+    </insert>
 </mapper>
