@@ -36,9 +36,20 @@ CREATE TABLE read.Log(
   `latitude` double Not Null,
   `longitude` double Not Null,
   `latest` DateTime Not NULL,
-  `sequence` Long default 1 Not Null
+  `sequence` bigint(20) Not Null default 1
 );
 
+DROP TABLE IF EXISTS read.ErrorLog;
+
+create table read.ErrorLog(
+  `log_id` bigint(20) NOt null auto_increment primary key,
+  `ip` varchar(255) Not null,
+  `url` varchar(255) Not null,
+  `body` longText Not null,
+  `queryString` varchar(255) Not Null,
+  `createdAt` dateTime NOT null,
+  `createdBy` varchar(50) Not null
+)
 
 DROP PROCEDURE IF EXISTS read.bookInsert;
 
@@ -53,21 +64,11 @@ begin
 
     INSERT INTO read.Log(userId,bookId,status,address,latitude,longitude,latest)
     VALUES(userId, @id, 1,@address, latitude, longitude, now());
-end $$
-DELIMITER ;
 
-DROP PROCEDURE IF EXISTS read.mySequence;
-
-DELIMITER $$
-CREATE PROCEDURE read.mySequence(bookId varchar(36), userId bigint(20))
-begin
-	SET @ROWNUM:=0;
-	SELECT @ROWNUM AS mySequence
-	FROM(
-		SELECT c.userId, c.bookId, @ROWNUM:=@ROWNUM+1
-		FROM read.Log c
-		WHERE c.bookId = bookId
-		) ASD
-	WHERE ASD.userId = userId;
+    UPDATE read.User
+    SET
+      book_point= book_point+1
+    WHERE
+      userId=@userId;
 end $$
 DELIMITER ;

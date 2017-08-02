@@ -27,4 +27,11 @@ public class ResponseDto {
                 .messgae(message)
                 .build();
     }
+
+    public static ResponseDto ofError(String message){
+        return ResponseDto.builder()
+                .status("에러발생 서버개발자 일시켜요")
+                .messgae(message)
+                .build();
+    }
 }

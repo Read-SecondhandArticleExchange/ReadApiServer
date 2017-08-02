@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" ?> <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Read.Domain.ErrorLog.ErrorLogMapper">
+    <insert id="save" parameterType="Read.Domain.ErrorLog.ErrorLog">
+        INSERT INTO read.ErrorLog(ip,url,body,createdAt,createdBy)
+        VALUES(#{ip},#{url},#{body},'SYSTEM',NOW())
+    </insert>
+</mapper>

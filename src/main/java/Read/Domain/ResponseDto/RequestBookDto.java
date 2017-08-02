@@ -9,6 +9,7 @@ import lombok.Setter;
  */
 @Getter
 @Setter
+@Builder
 public class RequestBookDto {
     private String coverUrl;
     private String title;
@@ -17,4 +18,5 @@ public class RequestBookDto {
     private String publication;
     private String isbn;
     private Long requestCount;
+
 }

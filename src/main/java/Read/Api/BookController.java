@@ -77,11 +77,13 @@ public class BookController {
 
     @ApiOperation(value="책 요청 검색 api" ,notes= "책 요청 검색 api")
     @RequestMapping(value="bookRequest", method = RequestMethod.GET)
-    public List<RequestBookDto> bookRequest(
+    public List<RequestBookDtoV2> bookRequest(
             @ApiParam(value="검색 내용")
-            @RequestParam("content") String content){
+            @RequestParam("content") String content,
+            @ApiParam(value="userId")
+            @RequestParam("userId") Long userId){
         try{
-            return bookService.requestSearch(content);
+            return bookService.requestSearch(content,userId);
         }catch(Exception e){
             logger.error("/api/v1/book/bookRequest error : " + e.getMessage());
         }
@@ -119,8 +121,7 @@ public class BookController {
         try{
             if(check==true)
                 userService.update(userId, name,address,phoneNumber);
-            bookService.request(isbn,userId);
-            return ResponseDto.ofSuccess("책 요청 성공");
+            return ResponseDto.ofSuccess(bookService.request(isbn,userId));
         }catch(Exception e){
             logger.error("/api/v1/book/request error : " + e.getMessage());
         }
