@@ -4,6 +4,7 @@ import Read.Domain.Book.Book;
 import Read.Domain.HoldUser.HoldUser;
 import Read.Domain.ResponseDto.MyBookLogResponseDto;
 import Read.Domain.User.User;
+import Read.Domain.User.UserCreateDto;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
@@ -26,4 +27,12 @@ public interface LogMapper {
     Log selectByIsbn(String isbn);
     void updateByRequest(Log log);
     void insert(@Param("bookId") String bookId, @Param("user") User user,@Param("sequence") Long sequence);
+    void changeStatus(LogStatusChangeDto logStatusChangeDto);
+    void sendStatus(LogStatusChangeDto logStatusChangeDto);
+    void receiveStatus(LogStatusChangeDto logStatusChangeDto);
+    void checkSendStatus(LogStatusChangeDto logStatusChangeDto);
+    void deleteStaus(LogStatusChangeDto logStatusChangeDto);
+    void requestToShareStatus(LogStatusChangeDto logStatusChangeDto);
+    UserCreateDto userInformation(String bookId);
+    void pointUp(String id);
 }

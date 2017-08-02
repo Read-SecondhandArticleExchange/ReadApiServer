@@ -72,3 +72,44 @@ begin
       userId=@userId;
 end $$
 DELIMITER ;
+
+
+
+DROP PROCEDURE IF EXISTS read.pointup;
+DELIMITER $$
+CREATE PROCEDURE read.pointup(in bookId varchar(200) )
+begin
+	SET @id:=0;
+    select @id:=userId
+    from read.Log l
+    where l.bookId=bookId and status=3;
+
+    set @bpoint:=0;
+    select @bpoint=book_point
+    from read.User u
+    where u.userId=@id;
+
+    update read.User
+    set
+		book_point=@bpoint+1
+	where userId=@id;
+
+   SET @id:=0;
+    select @id:=userId
+    from read.Log l
+    where l.bookId=bookId and status=1;
+
+    set @bpoint:=0;
+    select @bpoint=book_point
+    from read.User u
+    where u.userId=@id;
+
+    update read.User
+    set
+		book_point=@bpoint-1
+	where userId=@id;
+
+
+end $$
+DELIMITER ;
+

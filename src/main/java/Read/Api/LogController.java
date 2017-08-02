@@ -4,9 +4,8 @@ import Read.Domain.Book.Book;
 import Read.Domain.Log.Log;
 import Read.Domain.Log.LogStatusByUserIdDto;
 import Read.Domain.Log.LogService;
-import Read.Domain.ResponseDto.DetailBookLogDto;
-import Read.Domain.ResponseDto.MyBookLogResponseDto;
-import Read.Domain.ResponseDto.ReadBookResponseDto;
+import Read.Domain.Log.LogStatusChangeDto;
+import Read.Domain.ResponseDto.*;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -14,10 +13,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Collections;
 import java.util.List;
@@ -86,4 +82,25 @@ public class LogController {
         }
         return null;
     }
+    @ApiOperation(value = "리드박스에서 상태변경 api",notes = "상태변경 api")
+    @RequestMapping(value = "myreadbox/statuschange",method = RequestMethod.PUT)
+    public ResponseDto boxstatusChanege(@ApiParam(value = "책번호,원래 상태번호,바꿀 상태번호") @RequestBody LogStatusChangeDto logStatusChangeDto){
+        try{
+            return logService.statusChange(logStatusChangeDto);
+        }catch (Exception e){
+            logger.info(e.getMessage());
+            return ResponseDto.ofFail(e.getMessage());
+        }
+    }
+    @ApiOperation(value = "리드박스에서 내 책을 요청한 사람의 주소 보기 정보 보기",notes = "내 책을 요청한 사람 주소정보 api")
+    @RequestMapping(value = "myreadbox/information",method = RequestMethod.GET)
+    public UserInformationResponseDto boxinformation(@ApiParam(value = "bookId") @RequestParam(value = "bookdId") String bookid){
+        try{
+            return logService.informationUser(bookid);
+        }catch (Exception e){
+            logger.info(e.getMessage());
+            return UserInformationResponseDto.ofFail(null,e.getMessage());
+        }
+    }
+
 }
