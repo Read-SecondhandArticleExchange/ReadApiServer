@@ -14,5 +14,5 @@ public class LogStatusByUserIdDto {
     int shareBook;
     int sendBook;
     int requestBook;
-    int receiveBool;
+    int receiveBook;
 }
