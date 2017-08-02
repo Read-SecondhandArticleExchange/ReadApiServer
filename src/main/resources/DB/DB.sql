@@ -36,7 +36,7 @@ CREATE TABLE read.Log(
   `latitude` double Not Null,
   `longitude` double Not Null,
   `latest` DateTime Not NULL,
-  `sequence` Long default 1 Not Null
+  `sequence` bigint(20) default 1 Not Null
 );
 
 
@@ -71,3 +71,45 @@ begin
 	WHERE ASD.userId = userId;
 end $$
 DELIMITER ;
+
+
+
+DROP PROCEDURE IF EXISTS read.pointup;
+DELIMITER $$
+CREATE PROCEDURE read.pointup(in bookId varchar(200) )
+begin
+	SET @id:=0;
+    select @id:=userId
+    from read.Log l
+    where l.bookId=bookId and status=3;
+
+    set @bpoint:=0;
+    select @bpoint=book_point
+    from read.User u
+    where u.userId=@id;
+
+    update read.User
+    set
+		book_point=@bpoint+1
+	where userId=@id;
+
+   SET @id:=0;
+    select @id:=userId
+    from read.Log l
+    where l.bookId=bookId and status=1;
+
+    set @bpoint:=0;
+    select @bpoint=book_point
+    from read.User u
+    where u.userId=@id;
+
+    update read.User
+    set
+		book_point=@bpoint-1
+	where userId=@id;
+
+
+end $$
+DELIMITER ;call read.pointup("1c148a44-7742-11e7-a415-0013771fd4ad")
+call read.pointup("1c148a44-7742-11e7-a415-0013771fd4ad")
+

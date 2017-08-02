@@ -6,7 +6,7 @@
 
     <select id="LogStatusByUserId" resultType="Read.Domain.Log.LogStatusByUserIdDto">
         SELECT u.book_point as 'virtualBook',COUNT(IF(status = 1,status,null)) as 'holdBook',COUNT(IF(status = 2,status,null)) as 'shareBook',COUNT(IF(status = 5,status,null)) as 'sendBook'
-        ,COUNT(IF(status = 4,status,null)) as 'requestBook',COUNT(IF(status = 5,status,null)) as 'receiveBook'
+        ,COUNT(IF(status = 4,status,null)) as 'requestBook',COUNT(IF(status = 6,status,null)) as 'receiveBook'
         from read.Log l join read.user u
         on l.userId= u.userId
         where l.userId=#{id}
@@ -15,7 +15,7 @@
         SELECT b.bookId,b.author,b.translator,b.publisher,b.title,b.category,b.cover_url as coverUrl,b.isbn,b.publication
         FROM read.Book b join read.Log l
         on b.bookId  = l.bookId
-        where l.userId=#{id}
+        where l.userId=#{id} and l.status not in(3)
     </select>
     <select id="selectByStatusIdAndUserId" resultType="Read.Domain.Book.Book">
         SELECT b.*
@@ -110,4 +110,14 @@
         status=2
         where bookId=#{bookId} and status=5;
     </update>
+
+    <select id="userInformation" resultType="Read.Domain.User.UserCreateDto">
+      select u.*
+      From read.User u join read.Log l
+      on u.userId = l.userId
+      where l.bookId = #{bookId} and l.status not in (5);
+    </select>
+    <select id="pointUp">
+        call read.pointup(#{bookId});
+    </select>
 </mapper>
