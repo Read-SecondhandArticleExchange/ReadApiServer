@@ -20,12 +20,19 @@
     </select>
 
     <select id="requestBook" parameterType="java.lang.String" resultType="Read.Domain.ResponseDto.RequestBookDto">
-        select b.title, b.author, b.publisher, b.publication,b.isbn, b.cover_url AS coverUrl , (SELECT COUNT(*)
+        SELECT DISTINCT b.title, b.author, b.publisher, b.publication,b.isbn, b.cover_url AS coverUrl , (SELECT COUNT(*)
 																			FROM read.Log a join read.Book c
 																			ON a.bookId = c.bookId
 																			WHERE (c.author = #{content} OR c.title= #{content}) AND a.status=2) AS requestCount
         FROM read.Log l JOIN read.Book b
         ON l.bookId = b.bookId
         WHERE (b.author = #{content} OR b.title = #{content}) AND l.status=2
+    </select>
+
+    <select id="myRequestBookCount" resultType="java.lang.Long">
+        SELECT COUNT(*)
+        FROM read.Log l JOIN read.Book b
+        ON l.bookId = b.bookId AND b.isbn =#{isbn}
+        WHERE l.userId=#{userId} AND ( l.status =4 OR l.status =6)
     </select>
 </mapper>

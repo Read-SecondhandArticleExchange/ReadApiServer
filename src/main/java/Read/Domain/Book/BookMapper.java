@@ -16,5 +16,6 @@ public interface BookMapper {
     List<Book> selectAll();
     void insert(InsertDto insertDto);
     DetailBookInfo detailBook(String bookId);
-    List<RequestBookDto> requestBook(String content);
+    List<RequestBookDto> requestBook(@Param("content") String content);
+    Long myRequestBookCount(@Param("isbn") String isbn, @Param("userId") Long userId);
 }

@@ -2,6 +2,7 @@ package Read.Domain.Book;
 
 import Read.Domain.EBook.EBook;
 import Read.Domain.ResponseDto.RequestBookDto;
+import Read.Domain.ResponseDto.RequestBookDtoV2;
 
 import java.util.List;
 
@@ -11,8 +12,8 @@ import java.util.List;
 public interface BookService {
     List<Book> selectAll();
     EBook search(String content);
-    void insert(String isbn,Long userId);
-    List<RequestBookDto> requestSearch(String content);
+    void insert(String isbn,Long userId) throws Exception;
+    List<RequestBookDtoV2> requestSearch(String content, Long userId);
     DetailBookInfo detailBook(String bookId);
-    void request(String isbn, Long userId);
+    String request(String isbn, Long userId);
 }
