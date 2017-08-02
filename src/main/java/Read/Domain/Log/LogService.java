@@ -5,6 +5,7 @@ import Read.Domain.HoldUser.HoldUser;
 import Read.Domain.ResponseDto.DetailBookLogDto;
 import Read.Domain.ResponseDto.MyBookLogResponseDto;
 import Read.Domain.ResponseDto.ReadBookResponseDto;
+import Read.Domain.ResponseDto.ResponseDto;
 import Read.Domain.User.User;
 
 import java.util.List;
@@ -22,4 +23,5 @@ public interface LogService {
     Log selectByIsbn(String isbn);
     void updateByRequest(Log log);
     void insert(String bookId, User User);
+    ResponseDto statusChange(LogStatusChangeDto logStatusChangeDto);
 }
