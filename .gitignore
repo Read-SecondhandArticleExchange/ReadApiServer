@@ -39,7 +39,6 @@ apiKey.propertise
 kakaotalk.propertise
 
 ### Maven ###
-log/
 target/
 src/main/resources/properties/apiKey.properties
 src/main/resources/properties/dbInfomation.properties
