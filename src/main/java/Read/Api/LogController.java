@@ -5,10 +5,7 @@ import Read.Domain.Log.Log;
 import Read.Domain.Log.LogStatusByUserIdDto;
 import Read.Domain.Log.LogService;
 import Read.Domain.Log.LogStatusChangeDto;
-import Read.Domain.ResponseDto.DetailBookLogDto;
-import Read.Domain.ResponseDto.MyBookLogResponseDto;
-import Read.Domain.ResponseDto.ReadBookResponseDto;
-import Read.Domain.ResponseDto.ResponseDto;
+import Read.Domain.ResponseDto.*;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -93,6 +90,16 @@ public class LogController {
         }catch (Exception e){
             logger.info(e.getMessage());
             return ResponseDto.ofFail(e.getMessage());
+        }
+    }
+    @ApiOperation(value = "리드박스에서 내 책을 요청한 사람의 주소 보기 정보 보기",notes = "내 책을 요청한 사람 주소정보 api")
+    @RequestMapping(value = "myreadbox/information",method = RequestMethod.GET)
+    public UserInformationResponseDto boxinformation(@ApiParam(value = "bookId") @RequestParam(value = "bookdId") String bookid){
+        try{
+            return logService.informationUser(bookid);
+        }catch (Exception e){
+            logger.info(e.getMessage());
+            return UserInformationResponseDto.ofFail(null,e.getMessage());
         }
     }
 

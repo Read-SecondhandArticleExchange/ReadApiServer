@@ -4,6 +4,7 @@ import Read.Domain.Book.Book;
 import Read.Domain.HoldUser.HoldUser;
 import Read.Domain.ResponseDto.MyBookLogResponseDto;
 import Read.Domain.User.User;
+import Read.Domain.User.UserCreateDto;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
@@ -32,4 +33,6 @@ public interface LogMapper {
     void checkSendStatus(LogStatusChangeDto logStatusChangeDto);
     void deleteStaus(LogStatusChangeDto logStatusChangeDto);
     void requestToShareStatus(LogStatusChangeDto logStatusChangeDto);
+    UserCreateDto userInformation(String bookId);
+    void pointUp(String id);
 }

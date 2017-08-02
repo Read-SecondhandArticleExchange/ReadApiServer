@@ -2,11 +2,9 @@ package Read.Domain.Log;
 
 import Read.Domain.Book.Book;
 import Read.Domain.HoldUser.HoldUser;
-import Read.Domain.ResponseDto.DetailBookLogDto;
-import Read.Domain.ResponseDto.MyBookLogResponseDto;
-import Read.Domain.ResponseDto.ReadBookResponseDto;
-import Read.Domain.ResponseDto.ResponseDto;
+import Read.Domain.ResponseDto.*;
 import Read.Domain.User.User;
+import Read.Domain.User.UserCreateDto;
 
 import java.util.List;
 
@@ -24,4 +22,5 @@ public interface LogService {
     void updateByRequest(Log log);
     void insert(String bookId, User User);
     ResponseDto statusChange(LogStatusChangeDto logStatusChangeDto);
+    UserInformationResponseDto informationUser(String bookid);
 }

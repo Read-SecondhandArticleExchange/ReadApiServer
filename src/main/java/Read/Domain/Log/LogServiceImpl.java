@@ -3,11 +3,9 @@ package Read.Domain.Log;
 import Read.Domain.Book.Book;
 import Read.Domain.Book.BookService;
 import Read.Domain.HoldUser.HoldUser;
-import Read.Domain.ResponseDto.DetailBookLogDto;
-import Read.Domain.ResponseDto.MyBookLogResponseDto;
-import Read.Domain.ResponseDto.ReadBookResponseDto;
-import Read.Domain.ResponseDto.ResponseDto;
+import Read.Domain.ResponseDto.*;
 import Read.Domain.User.User;
+import Read.Domain.User.UserCreateDto;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -115,6 +113,7 @@ public class LogServiceImpl implements LogService {
         //받을책 -->보유중
         if(logStatusChangeDto.getPresentStatus()==4 && logStatusChangeDto.getChangeStatus()==1){
             logMapper.checkSendStatus(logStatusChangeDto);
+            logMapper.pointUp(logStatusChangeDto.getBookId());
             return ResponseDto.ofSuccess("SUCCESS");
         }
         //요청한책 취소
@@ -124,5 +123,9 @@ public class LogServiceImpl implements LogService {
             return ResponseDto.ofSuccess("SUCCESS");
         }
         return ResponseDto.ofFail("FAIL");
+    }
+    @Override
+    public UserInformationResponseDto informationUser(String bookid){
+            return UserInformationResponseDto.of(logMapper.userInformation(bookid));
     }
 }
