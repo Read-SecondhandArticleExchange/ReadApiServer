@@ -3,6 +3,7 @@ package Read.Domain.User;
 import Read.Domain.Log.LogMapper;
 import Read.Domain.ResponseDto.RequestUser;
 import Read.Domain.ResponseDto.ResponseDto;
+import Read.Domain.ResponseDto.UserConfirmDto;
 import Read.Domain.ResponseDto.UserResponseDto;
 import Read.GeoCoding;
 import lombok.extern.slf4j.Slf4j;
@@ -63,17 +64,17 @@ public class UserServiceImpl implements UserService{
     }
     @Transactional(readOnly = true)
     @Override
-    public ResponseDto confirmUser(UserConfirmRequestDto userConfirmRequestDto){
+    public UserConfirmDto confirmUser(UserConfirmRequestDto userConfirmRequestDto){
         User user = userMapper.confirmId(userConfirmRequestDto.getKakaoId());
         if(user==null){
             userMapper.firstLogin(userConfirmRequestDto);
-            return ResponseDto.ofSuccess("0");
+            return UserConfirmDto.ofSuccess("0");
         }else{
             if(!user.getNickName().equals(userConfirmRequestDto.getProfileName())||!user.getProfileUrl().equals(userConfirmRequestDto.getProfileUrl())){
                 userMapper.updateProfileAndNickName(userConfirmRequestDto);
             }
             System.out.println(user);
-            return user.getAddress()==null ? ResponseDto.ofSuccess("0"):ResponseDto.ofSuccess("1");
+            return user.getAddress()==null ? UserConfirmDto.ofSuccess("0"):UserConfirmDto.ofSuccess("1");
         }
     }
 

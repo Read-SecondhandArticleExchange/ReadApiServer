@@ -2,6 +2,7 @@ package Read.Domain.User;
 
 import Read.Domain.ResponseDto.RequestUser;
 import Read.Domain.ResponseDto.ResponseDto;
+import Read.Domain.ResponseDto.UserConfirmDto;
 import Read.Domain.ResponseDto.UserResponseDto;
 
 import java.util.List;
@@ -17,7 +18,7 @@ public interface UserService {
     AddressDto selectByAddress(Long userId);
     void AddressUpdate(Long userId,String address) throws Exception;
 
-    ResponseDto confirmUser(UserConfirmRequestDto userConfirmRequestDto);
+    UserConfirmDto confirmUser(UserConfirmRequestDto userConfirmRequestDto);
     ResponseDto signUpUser(UserCreateDto userCreateDto) throws Exception;
 
     RequestUser requestUser(Long userId);
