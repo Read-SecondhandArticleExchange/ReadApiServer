@@ -9,5 +9,8 @@ import lombok.Setter;
 @Getter
 @Setter
 public class AddressDto {
+    private Long postCode;
     private String address;
+    private String detailAddress;
+
 }

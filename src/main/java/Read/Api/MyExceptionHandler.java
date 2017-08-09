@@ -14,14 +14,16 @@ import org.springframework.web.bind.annotation.ResponseStatus;
  */
 @ControllerAdvice
 public class MyExceptionHandler {
+
     @Autowired
     private ErrorService errorService;
 
     @ExceptionHandler(value = { Exception.class} )
-    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)//500
     @ResponseBody
     public ResponseDto handlerException(Exception e){
         String errorMsg = errorService.logError(e);
         return ResponseDto.ofError(errorMsg);
     }
+
 }

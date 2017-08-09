@@ -18,7 +18,7 @@ public interface UserMapper {
     User selectById(Long userId);
 
     AddressDto selectByAddress(Long userId);
-    void updateAddress(@Param("userId") Long userId, @Param("address") String address, @Param("latitude") double latitude, @Param("longitude") double longitude);
+    void updateAddress(@Param("userId") Long userId, @Param("address") String address, @Param("latitude") double latitude, @Param("longitude") double longitude, @Param("postCode") Long postCode, @Param("detailAddress") String detailAddress);
 
     User confirmId(Long userId);
     void firstLogin(UserConfirmRequestDto userConfirmRequestDto);
@@ -26,5 +26,5 @@ public interface UserMapper {
     void userCreate(User user);
 
     RequestUser requestUser(Long userId);
-    void update(@Param("userId")Long userId, @Param("name") String name, @Param("address") String address, @Param("phoneNumber") String phoneNumber,@Param("latitude") double latitude,@Param("longitude") double longitude);
+    void update(@Param("userId")Long userId, @Param("name") String name, @Param("address") String address, @Param("phoneNumber") String phoneNumber,@Param("latitude") double latitude,@Param("longitude") double longitude,@Param("postCode") Long postCode, @Param("detailAddress") String detailAddress);
 }

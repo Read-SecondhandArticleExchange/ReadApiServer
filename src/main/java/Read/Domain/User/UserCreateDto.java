@@ -11,8 +11,10 @@ import java.beans.Transient;
 @Setter
 @Getter
 public class UserCreateDto {
-    long kakaoId;
-    String userName;
-    String phoneNumber;
-    String address;
+    private long kakaoId;
+    private String userName;
+    private String phoneNumber;
+    private Long postCode;
+    private String address;
+    private String detailAddress;
 }

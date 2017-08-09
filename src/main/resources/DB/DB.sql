@@ -7,9 +7,11 @@ CREATE TABLE read.User(
   `book_point` bigint(20) default 0 Not Null,
   `latitude` double,
   `longitude` double,
-  `address` varchar(200),
+  `address` varchar(100),
   `userName` varchar(50),
-  `phoneNumber` varchar(50)
+  `phoneNumber` varchar(50),
+  `postcode` bigint(20),
+  `detail_address` varchar(100)
 );
 
 DROP TABLE IF EXISTS read.Book;
@@ -49,7 +51,7 @@ create table read.ErrorLog(
   `queryString` varchar(255) Not Null,
   `createdAt` dateTime NOT null,
   `createdBy` varchar(50) Not null
-)
+);
 
 DROP PROCEDURE IF EXISTS read.bookInsert;
 

@@ -61,11 +61,15 @@ public class BookController {
             @ApiParam(value="주소 정보 저장 유무")
             @RequestParam("check") boolean check,
             @ApiParam("address")
-            @RequestParam("address") String address){
+            @RequestParam("address") String address,
+            @ApiParam("postCode")
+            @RequestParam("postCode") Long postCode,
+            @ApiParam("detailAddress")
+            @RequestParam("detailAddress") String detailAddress){
         logger.info("BookController insert Method");
         try{
             if(check)
-                userService.AddressUpdate(userId,address);
+                userService.AddressUpdate(userId,address,postCode,detailAddress);
             bookService.insert(isbn,userId);
             return BookResponseDto.of("책 등록 성공",userService.findOne(userId));
         }catch(Exception e){
@@ -117,10 +121,14 @@ public class BookController {
             @ApiParam(value="이름")
             @RequestParam("name") String name,
             @ApiParam(value="핸드폰번호")
-            @RequestParam("phoneNumber") String phoneNumber){
+            @RequestParam("phoneNumber") String phoneNumber,
+            @ApiParam(value = "postCode")
+            @RequestParam("postCode") Long postCode,
+            @ApiParam(value = "detailAddress")
+            @RequestParam("detailAddress") String detailAddress){
         try{
             if(check==true)
-                userService.update(userId, name,address,phoneNumber);
+                userService.update(userId, name,address,phoneNumber,postCode,detailAddress);
             return ResponseDto.ofSuccess(bookService.request(isbn,userId));
         }catch(Exception e){
             logger.error("/api/v1/book/request error : " + e.getMessage());

@@ -14,7 +14,7 @@
     </select>
 
     <select id="selectByAddress" parameterType="java.lang.Long" resultType="Read.Domain.User.AddressDto">
-        SELECT address
+        SELECT address, postcode AS postCode, detail_address AS detailAddress
         FROM read.User
         WHERE userId = #{userId}
     </select>
@@ -24,7 +24,9 @@
         SET
           address = #{address},
           latitude = #{latitude},
-          longitude = #{longitude}
+          longitude = #{longitude},
+          postcode = #{postCode},
+          detail_address = #{detailAddress}
         WHERE userId = #{userId}
     </update>
 
@@ -48,7 +50,7 @@
     <update id="userCreate">
       update read.User
       SET
-        latitude=#{latitude},longitude=#{longitude},address=#{address},userName=#{userName},phoneNumber=#{phoneNumber}
+        latitude=#{latitude},longitude=#{longitude},address=#{address},userName=#{userName},phoneNumber=#{phoneNumber},postcode=#{postCode},detail_address=#{detailAddress}
       WHERE userId=#{userId};
     </update>
 
@@ -65,7 +67,9 @@
           address=#{address},
           phoneNumber=#{phoneNumber},
           latitude=#{latitude},
-          longitude=#{longitude}
+          longitude=#{longitude},
+          postcode = #{postCode},
+          detail_address = #{detailAddress}
         WHERE userId=#{userId}
     </update>
 </mapper>
