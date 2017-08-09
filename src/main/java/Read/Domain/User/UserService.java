@@ -15,11 +15,11 @@ public interface UserService {
 
     User findOne(Long userId);
     AddressDto selectByAddress(Long userId);
-    void AddressUpdate(Long userId,String address) throws Exception;
+    void AddressUpdate(Long userId,String address,Long postCode, String detailAddress) throws Exception;
 
     ResponseDto confirmUser(UserConfirmRequestDto userConfirmRequestDto);
     ResponseDto signUpUser(UserCreateDto userCreateDto) throws Exception;
 
     RequestUser requestUser(Long userId);
-    void update(Long userId, String name, String address, String phoneNumber) throws Exception;
+    void update(Long userId, String name, String address, String phoneNumber,Long postCode, String detailAddress) throws Exception;
 }

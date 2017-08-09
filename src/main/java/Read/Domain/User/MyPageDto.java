@@ -18,6 +18,8 @@ public class MyPageDto {
     private Long ownCount;
     private Long bookPoint;
     private String address;
+    private Long postCode;
+    private String deatilAddress;
 
     public static MyPageDto of(User user){
         return MyPageDto.builder()
@@ -28,6 +30,8 @@ public class MyPageDto {
                 .ownCount(user.getOwnCount())
                 .bookPoint(user.getBookPoint())
                 .address(user.getAddress())
+                .postCode(user.getPostCode())
+                .deatilAddress(user.getDetailAddress())
                 .build();
     }
 }

@@ -57,9 +57,9 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public void AddressUpdate(Long userId,String address) throws Exception{
-        Float[] cords = geoCoding.geoCoding(address);
-        userMapper.updateAddress(userId, address,(double)cords[0],(double)cords[1]);
+    public void AddressUpdate(Long userId,String address,Long postCode, String detailAddress) throws Exception{
+        Float[] cords = geoCoding.geoCoding(address+detailAddress);
+        userMapper.updateAddress(userId, address,(double)cords[0],(double)cords[1],postCode, detailAddress);
     }
     @Transactional(readOnly = true)
     @Override
@@ -80,7 +80,7 @@ public class UserServiceImpl implements UserService{
     @Transactional(readOnly = true)
     @Override
     public ResponseDto signUpUser(UserCreateDto userCreateDto) throws Exception{
-        Float [] cords=geoCoding.geoCoding(userCreateDto.getAddress());
+        Float [] cords=geoCoding.geoCoding(userCreateDto.getAddress()+userCreateDto.getDetailAddress());
         User user = new User();
         user.setAddress(userCreateDto.getAddress());
         user.setUserName(userCreateDto.getUserName());
@@ -88,6 +88,8 @@ public class UserServiceImpl implements UserService{
         user.setLongitude((double)cords[1]);
         user.setPhoneNumber(userCreateDto.getPhoneNumber());
         user.setUserId(userCreateDto.getKakaoId());
+        user.setDetailAddress(userCreateDto.getDetailAddress());
+        user.setPostCode(userCreateDto.getPostCode());
         userMapper.userCreate(user);
         return ResponseDto.ofSuccess("SUCCESS");
 
@@ -99,8 +101,8 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public void update(Long userId, String name, String address, String phoneNumber) throws Exception{
-            Float [] cords = geoCoding.geoCoding(address);
-            userMapper.update(userId, name, address, phoneNumber,(double)cords[0],(double)cords[1]);
+    public void update(Long userId, String name, String address, String phoneNumber, Long postCode, String detailAddress) throws Exception{
+            Float [] cords = geoCoding.geoCoding(address+detailAddress);
+            userMapper.update(userId, name, address, phoneNumber,(double)cords[0],(double)cords[1],postCode,detailAddress);
     }
 }

@@ -25,7 +25,7 @@
     </select>
 
     <select id="myBookLog" parameterType="java.lang.Long" resultType="Read.Domain.ResponseDto.MyBookLogResponseDto">
-        select b.bookId,b.cover_url as coverUrl,b.title,b.publisher,b.publication,b.category,l.status,
+        select b.author,b.bookId,b.cover_url as coverUrl,b.title,b.publisher,b.publication,b.category,l.status,
 		  (
 			SELECT COUNT(*)
 			FROM read.Log a

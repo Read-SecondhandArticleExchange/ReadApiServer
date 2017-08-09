@@ -9,6 +9,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class MyBookLogResponseDto {
+    private String author;
     private String bookId;
     private String coverUrl;
     private String title;

@@ -12,26 +12,33 @@ import lombok.Setter;
 @Builder
 public class ResponseDto {
     private String status;
-    private String messgae;
+    private String message;
 
     public static ResponseDto ofSuccess(String message){
         return ResponseDto.builder()
                 .status("SUCCESS")
-                .messgae(message)
+                .message(message)
                 .build();
     }
 
     public static ResponseDto ofFail(String message){
         return ResponseDto.builder()
                 .status("FAIL")
-                .messgae(message)
+                .message(message)
                 .build();
     }
 
     public static ResponseDto ofError(String message){
         return ResponseDto.builder()
                 .status("에러발생 서버개발자 일시켜요")
-                .messgae(message)
+                .message(message)
+                .build();
+    }
+
+    public static ResponseDto ofBadRequest(String message){
+        return ResponseDto.builder()
+                .status("요청 재 확인 요망")
+                .message(message)
                 .build();
     }
 }
