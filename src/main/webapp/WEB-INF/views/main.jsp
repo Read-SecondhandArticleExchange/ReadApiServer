@@ -15,9 +15,9 @@
     <title>app-read</title>
     <meta content="width=device-width, initial-scale=1" name="viewport">
     <meta content="Webflow" name="generator">
-    <link href="../../resources/READ_W~1/css/normalize.css" rel="stylesheet" type="text/css">
-    <link href="../../resources/READ_W~1/css/webflow.css" rel="stylesheet" type="text/css">
-    <link href="../../resources/READ_W~1/css/app-readme.webflow.css" rel="stylesheet" type="text/css">
+    <link href="resources/READ_W~1/css/normalize.css" rel="stylesheet" type="text/css">
+    <link href="resources/READ_W~1/css/webflow.css" rel="stylesheet" type="text/css">
+    <link href="resources/READ_W~1/css/app-readme.webflow.css" rel="stylesheet" type="text/css">
     <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.4.7/webfont.js" type="text/javascript"></script>
     <script type="text/javascript">WebFont.load({
         google: {
@@ -34,7 +34,7 @@
 <div class="navbar w-nav" data-animation="default" data-collapse="medium" data-duration="400">
     <div class="container w-container">
         <a class="brand w-nav-brand" href="#">
-            <div class="div-block-2"><img src="../../resources/READ_W~1/images/Logo.svg"></div>
+            <div class="div-block-2"><img src="resources/READ_W~1/images/Logo.svg"></div>
         </a>
         <div class="navblock"><a class="button line mobile top w-button" data-ix="navsetting" href="#">Android App</a></div>
     </div>
@@ -43,7 +43,7 @@
     <div class="div horizontal">
         <div class="left maindiv">
             <div class="mainindiv top">
-                <div><img src="../../resources/READ_W~1/images/Logo.svg"></div>
+                <div><img src="resources/READ_W~1/images/Logo.svg"></div>
             </div>
             <div class="mainindiv mid">
                 <div class="maintext">좋은 책을, 좋은 사람에게.</div>
@@ -53,7 +53,7 @@
             <div class="bottom mainindiv"><a class="button icon insta line w-button" href="#"></a><a class="button fb icon line w-button" href="#"></a><a class="button icon kko line w-button" href="#"></a></div>
         </div>
         <div class="maindiv right">
-            <div class="mainimage"><img class="image-2" src="../../resources/READ_W~1/images/web_prototype.png"></div>
+            <div class="mainimage"><img class="image-2" src="resources/READ_W~1/images/web_prototype.png"></div>
         </div>
     </div>
 </div>
@@ -107,21 +107,21 @@
         <div class="text-block">About</div>
         <div class="w-row">
             <div class="aboutcolumn left w-col w-col-4">
-                <div class="aboutdiv"><img class="aboutimage" sizes="(max-width: 479px) 78vw, (max-width: 767px) 250px, 22vw" src="../../resources/READ_W~1/images/read_Logo.jpg" srcset="../../resources/READ_W~1/images/read_Logo-p-500.jpeg 500w, images/read_Logo.jpg 624w">
+                <div class="aboutdiv"><img class="aboutimage" sizes="(max-width: 479px) 78vw, (max-width: 767px) 250px, 22vw" src="resources/READ_W~1/images/read_Logo.jpg" srcset="resources/READ_W~1/images/read_Logo-p-500.jpeg 500w, images/read_Logo.jpg 624w">
                     <div class="abouttext">경제성</div>
                     <div class="stroke"></div>
                     <div class="_16 text-block-3">우리 아파트의 한정된 주차공간을 효율적으로 활용하고 관리하기 위하여 일부 미등록 차량의 등록유도와 입주민 차량이 아닌.</div>
                 </div>
             </div>
             <div class="aboutcolumn mid w-col w-col-4">
-                <div class="aboutdiv"><img class="aboutimage" sizes="(max-width: 479px) 78vw, (max-width: 767px) 250px, 22vw" src="../../resources/READ_W~1/images/read_Logo.jpg" srcset="../../resources/READ_W~1/images/read_Logo-p-500.jpeg 500w, images/read_Logo.jpg 624w">
+                <div class="aboutdiv"><img class="aboutimage" sizes="(max-width: 479px) 78vw, (max-width: 767px) 250px, 22vw" src="resources/READ_W~1/images/read_Logo.jpg" srcset="resources/READ_W~1/images/read_Logo-p-500.jpeg 500w, images/read_Logo.jpg 624w">
                     <div class="abouttext">경제성</div>
                     <div class="stroke"></div>
                     <div class="_16 text-block-3">우리 아파트의 한정된 주차공간을 효율적으로 활용하고 관리하기 위하여 일부 미등록 차량의 등록유도와 입주민 차량이 아닌.</div>
                 </div>
             </div>
             <div class="aboutcolumn right w-col w-col-4">
-                <div class="aboutdiv"><img class="aboutimage" sizes="(max-width: 479px) 78vw, (max-width: 767px) 250px, 22vw" src="../../resources/READ_W~1/images/read_Logo.jpg" srcset="../../resources/READ_W~1/images/read_Logo-p-500.jpeg 500w, images/read_Logo.jpg 624w">
+                <div class="aboutdiv"><img class="aboutimage" sizes="(max-width: 479px) 78vw, (max-width: 767px) 250px, 22vw" src="resources/READ_W~1/images/read_Logo.jpg" srcset="resources/READ_W~1/images/read_Logo-p-500.jpeg 500w, images/read_Logo.jpg 624w">
                     <div class="abouttext">경제성</div>
                     <div class="stroke"></div>
                     <div class="_16 text-block-3">우리 아파트의 한정된 주차공간을 효율적으로 활용하고 관리하기 위하여 일부 미등록 차량의 등록유도와 입주민 차량이 아닌.</div>
@@ -135,19 +135,19 @@
         <div class="text-block">Service</div>
         <div class="w-row">
             <div class="aboutcolumn left w-col w-col-4">
-                <div class="aboutdiv"><img class="serviceimage" src="../../resources/READ_W~1/images/web_prototype2.png" width="250">
+                <div class="aboutdiv"><img class="serviceimage" src="resources/READ_W~1/images/web_prototype2.png" width="250">
                     <div class="service-text">북로그</div>
                     <div class="_16 text-block-3">해당 유저가 리드 앱을 통해 어떤 책을 읽었는지 알 수 있습니다. 추후 커뮤니티 기능이 추가되면 북로그의 각 컨텐트는 하나의 채팅방이 됩니다.</div>
                 </div>
             </div>
             <div class="aboutcolumn mid w-col w-col-4">
-                <div class="aboutdiv"><img class="serviceimage" src="../../resources/READ_W~1/images/web_prototype.png" width="250">
+                <div class="aboutdiv"><img class="serviceimage" src="resources/READ_W~1/images/web_prototype.png" width="250">
                     <div class="service-text">리드박스</div>
                     <div class="_16 text-block-3">자신이 소유한 책을 업로드하고, 다른 사람과 공유할 수 있는 가상 공간입니다. 책을 보내고 받는 등 책의 상태를 관리하는 핵심 기능이 있습니다.</div>
                 </div>
             </div>
             <div class="aboutcolumn right w-col w-col-4">
-                <div class="aboutdiv"><img class="serviceimage" src="../../resources/READ_W~1/images/web_prototype3.png" width="250">
+                <div class="aboutdiv"><img class="serviceimage" src="resources/READ_W~1/images/web_prototype3.png" width="250">
                     <div class="service-text">도서요청</div>
                     <div class="_16 text-block-3">가상도서를 이용하여 원하는 책을 요청하는 공간입니다. 도서명, 저자, 출판사 등으로 검색이 가능하며 먼저 올라온 책이 먼저 매칭됩니다.</div>
                 </div>
@@ -197,7 +197,7 @@
     </style>
 </div>
 <div class="footer">
-    <div class="div footer vertical"><img class="footer-logo" src="../../resources/READ_W~1/images/Logo.svg">
+    <div class="div footer vertical"><img class="footer-logo" src="resources/READ_W~1/images/Logo.svg">
         <div class="div footer horizontal">
             <div class="footerwhite">
                 <p class="paragraph">리드<br>대표이사: 윤이건<br>서울특별시 강남구 역삼동 상세주소<br>전화 : 010-4930-2614</p>
@@ -214,7 +214,7 @@
     </div>
 </div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js" type="text/javascript"></script>
-<script src="../../resources/READ_W~1/js/webflow.js" type="text/javascript"></script>
+<script src="resources/READ_W~1/js/webflow.js" type="text/javascript"></script>
 <!-- [if lte IE 9]><script src="https://cdnjs.cloudflare.com/ajax/libs/placeholders/3.0.2/placeholders.min.js"></script><![endif] -->
 </body>
 </html>
