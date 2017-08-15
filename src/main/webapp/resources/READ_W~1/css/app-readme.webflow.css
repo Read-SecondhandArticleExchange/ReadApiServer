@@ -42,7 +42,7 @@ p {
   padding-right: 0px;
   padding-left: 0px;
   border-radius: 5px;
-  background-color: #f5a623;
+  background-color: #eeaa3d;
   box-shadow: 0 1px 0 0 transparent;
   -webkit-transition: box-shadow 200ms ease;
   transition: box-shadow 200ms ease;
@@ -176,7 +176,7 @@ p {
   height: 57px;
   padding-top: 10px;
   padding-bottom: 10px;
-  background-color: #f5a623;
+  background-color: #eeaa3d;
 }
 
 .navblock {
@@ -212,7 +212,7 @@ p {
   -webkit-align-items: center;
   -ms-flex-align: center;
   align-items: center;
-  background-color: #f5a623;
+  background-color: #eeaa3d;
 }
 
 .section.grey {
@@ -665,7 +665,7 @@ p {
 }
 
 .contactinfo.heading {
-  color: #f5a623;
+  color: #eeaa3d;
   font-weight: 500;
 }
 
@@ -704,7 +704,7 @@ p {
   padding-top: 0px;
   padding-bottom: 0px;
   border-radius: 5px;
-  background-color: #f5a623;
+  background-color: #eeaa3d;
 }
 
 .column {
