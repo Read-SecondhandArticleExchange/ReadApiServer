@@ -23,24 +23,24 @@
 	rel="stylesheet" type="text/css">
 <style type="text/css">
 .frame {
-	width: 100%;
-	height: auto;
-	padding: 0;
+	/* 	height: 250px; */
+	/* 	line-height: 250px; */
+	overflow: hidden;
 }
 
 .frame .slidee {
+	list-style: none;
 	margin: 0;
 	padding: 0;
 	height: 100%;
-	list-style: none;
 }
 
 .frame .slidee li {
 	float: left;
-	margin: 0 5px 0 0;
-	padding: 0;
-	width: 120px;
+	width: 200px;
 	height: 100%;
+	margin: 0 1px 0 0;
+	padding: 0;
 }
 </style>
 <script
@@ -48,39 +48,26 @@
 	type="text/javascript"></script>
 <script type="text/javascript">
 	WebFont
-			.load({
-				google : {
-					families : [
-							"Ubuntu:300,300italic,400,400italic,500,500italic,700,700italic",
-							"Noto Sans:regular,italic,700,700italic:latin-ext,cyrillic-ext,vietnamese,latin",
-							"Passion One:regular,700,900", "Baloo:regular",
-							"Days One:regular", "Wire One:regular" ]
-				}
-			});
+		.load({
+			google : {
+				families : [
+					"Ubuntu:300,300italic,400,400italic,500,500italic,700,700italic",
+					"Noto Sans:regular,italic,700,700italic:latin-ext,cyrillic-ext,vietnamese,latin",
+					"Passion One:regular,700,900", "Baloo:regular",
+					"Days One:regular", "Wire One:regular" ]
+			}
+		});
 </script>
 <!-- [if lt IE 9]><script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js" type="text/javascript"></script><![endif] -->
 <script type="text/javascript">
 	!function(o, c) {
-		var n = c.documentElement, t = " w-mod-";
+		var n = c.documentElement,
+			t = " w-mod-";
 		n.className += t + "js", ("ontouchstart" in o || o.DocumentTouch
-				&& c instanceof DocumentTouch)
-				&& (n.className += t + "touch")
+		&& c instanceof DocumentTouch)
+		&& (n.className += t + "touch")
 	}(window, document);
 </script>
-<%-- <script
-	src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
-<script
-	src="${pageContext.request.contextPath}/resources/READ_W~1/js/jquery.cycle2.min.js"
-	type="text/javascript"></script>
-<script
-	src="${pageContext.request.contextPath}/resources/READ_W~1/js/jquery.cycle2.carousel.min.js"
-	type="text/javascript"></script> --%>
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.js"></script>
-<!-- <script src="http://malsup.github.io/jquery.cycle2.js"></script> -->
-<!-- <script src="http://malsup.github.io/jquery.cycle2.carousel.js"></script> -->
-<script
-	src="${pageContext.request.contextPath}/resources/READ_W~1/js/sly.min.js"
-	type="text/javascript"></script>
 <link href="https://daks2k3a4ib2z.cloudfront.net/img/favicon.ico"
 	rel="shortcut icon" type="image/x-icon">
 <link href="https://daks2k3a4ib2z.cloudfront.net/img/webclip.png"
@@ -181,12 +168,20 @@
 	<div class="section white">
 		<div class="div vertical">
 			<div class="text-block">최근 올라온 책</div>
-			<div>
-				<div class="text-block-2">
+			<div style="overflow: hidden;">
+				<div class="text-block-2"
+					style="display: table-cell; vertical-align: middle;">
 					<div class="frame" id="slide-frame">
 						<ul class="slidee">
 							<c:forEach items="${bookList}" var="book">
-								<li><img src="${book.coverUrl }"></li>
+								<li style="text-align: center;">
+									<div style="text-align: left;">
+										<img src="${book.coverUrl }" width="190px">
+										<div style="font-weight: bold;">${book.title }</div>
+										<div>${book.author }</div>
+										<div>${book.publisher }</div>
+									</div>
+								</li>
 							</c:forEach>
 						</ul>
 					</div>
@@ -273,8 +268,8 @@
 			<div class="text-block">Contact</div>
 			<div class="row w-row">
 				<div class="column w-col w-col-6 w-col-stack">
-					<img class="image-3"
-						src="https://d3e54v103j8qbb.cloudfront.net/img/image-placeholder.svg">
+					<div class="image-3" id="map" style="height: 500px;"></div>
+					<!-- 					<img class="image-3" src="https://d3e54v103j8qbb.cloudfront.net/img/image-placeholder.svg"> -->
 					<div class="contact-buttons">
 						<a class="button flat insta w-button" href="#"></a><a
 							class="button fb flat w-button" href="#"></a><a
@@ -369,15 +364,49 @@
 	<script
 		src="${pageContext.request.contextPath}/resources/READ_W~1/js/webflow.js"
 		type="text/javascript"></script>
+	<script src="//code.jquery.com/jquery.min.js"></script>
+	<script src="//code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/READ_W~1/js/sly.min.js"
+		type="text/javascript"></script>
+	<script type="text/javascript"
+		src="//dapi.kakao.com/v2/maps/sdk.js?appkey=3ae20d3951481d51b7d198002e5cfaa3"></script>
 	<script type="text/javascript">
 		var options = {
 			horizontal : 1,
 			itemNav : 'basic',
-			speed : 300,
+			smart : 1,
+			activateOn : 'click',
 			mouseDragging : 1,
-			touchDragging : 1
+			touchDragging : 1,
+			releaseSwing : 1,
+			startAt : 0,
+			activatePageOn : 'click',
+			speed : 300,
+			elasticBounds : 1,
+			easing : 'easeOutExpo',
+			dragHandle : 1,
+			dynamicHandle : 1,
+	
+			cycleBy : 'pages',
+			cycleInterval : 3000,
+			pauseOnHover : 1
 		};
-		var frame = new Sly('#slide-frame', options).init();
+		var sly = new Sly('#slide-frame', options).init();
+		var container = document.getElementById('map'); //지도를 담을 영역의 DOM 레퍼런스
+		var options = { //지도를 생성할 때 필요한 기본 옵션
+			center : new daum.maps.LatLng(37.504074, 127.038064), //지도의 중심좌표.
+			level : 4 //지도의 레벨(확대, 축소 정도)
+		};
+		var map = new daum.maps.Map(container, options); //지도 생성 및 객체 리턴
+		// 마커가 표시될 위치입니다 
+		var markerPosition = new daum.maps.LatLng(37.504074, 127.038064);
+		// 마커를 생성합니다
+		var marker = new daum.maps.Marker({
+			position : markerPosition
+		});
+		// 마커가 지도 위에 표시되도록 설정합니다
+		marker.setMap(map);
 	</script>
 	<!-- [if lte IE 9]><script src="https://cdnjs.cloudflare.com/ajax/libs/placeholders/3.0.2/placeholders.min.js"></script><![endif] -->
 </body>
