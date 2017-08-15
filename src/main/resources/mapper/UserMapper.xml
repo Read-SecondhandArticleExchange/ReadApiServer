@@ -8,7 +8,7 @@
     </select>
 
     <select id="selectById" parameterType="java.lang.Long" resultType="Read.Domain.User.User">
-        SELECT *
+        SELECT userId,nickName,profile_url as profileUrl,book_point as bookPoint,longitude,latitude,address,phoneNumber,userName,postcode,detail_address as detailAddress
         FROM read.User
         WHERE userId = #{userId}
     </select>

@@ -81,8 +81,9 @@ public class BookServiceImpl implements BookService{
     public String request(String isbn, Long userId){
         Log log = logService.selectByIsbn(isbn);
         User user = userService.findOne(userId);
-        if(user.getBookPoint()==0)
-            return "포인트 부족";
+        System.out.println(user.toString());
+        if(user.getBookPoint()==0){
+            return "포인트 부족";}
         logService.updateByRequest(log);
         logService.insert(log.getBookId(),user);
         return "성공";

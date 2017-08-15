@@ -11,6 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashMap;
@@ -28,8 +29,6 @@ public class UserServiceImpl implements UserService{
     @Autowired
     private UserMapper userMapper;
 
-    @Autowired
-    private LogMapper logMapper;
 
     @Autowired
     private GeoCoding geoCoding;
@@ -62,7 +61,7 @@ public class UserServiceImpl implements UserService{
         Float[] cords = geoCoding.geoCoding(address+detailAddress);
         userMapper.updateAddress(userId, address,(double)cords[0],(double)cords[1],postCode, detailAddress);
     }
-    @Transactional(readOnly = true)
+    @Transactional(readOnly = true,propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
     @Override
     public UserConfirmDto confirmUser(UserConfirmRequestDto userConfirmRequestDto){
         User user = userMapper.confirmId(userConfirmRequestDto.getKakaoId());
@@ -73,15 +72,14 @@ public class UserServiceImpl implements UserService{
             if(!user.getNickName().equals(userConfirmRequestDto.getProfileName())||!user.getProfileUrl().equals(userConfirmRequestDto.getProfileUrl())){
                 userMapper.updateProfileAndNickName(userConfirmRequestDto);
             }
-            System.out.println(user);
             return user.getAddress()==null ? UserConfirmDto.ofSuccess("0"):UserConfirmDto.ofSuccess("1");
         }
     }
 
-    @Transactional(readOnly = true)
+    @Transactional(readOnly = true,propagation = Propagation.REQUIRED)
     @Override
     public ResponseDto signUpUser(UserCreateDto userCreateDto) throws Exception{
-        Float [] cords=geoCoding.geoCoding(userCreateDto.getAddress()+userCreateDto.getDetailAddress());
+        Float [] cords=geoCoding.geoCoding(userCreateDto.getAddress());
         User user = new User();
         user.setAddress(userCreateDto.getAddress());
         user.setUserName(userCreateDto.getUserName());
