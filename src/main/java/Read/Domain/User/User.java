@@ -23,4 +23,5 @@ public class User {
     private String userName;
     private Long postCode;
     private String detailAddress;
+
 }

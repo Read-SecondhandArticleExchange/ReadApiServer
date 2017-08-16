@@ -1,6 +1,7 @@
 package Read.Api;
 
 import Read.Domain.ResponseDto.ResponseDto;
+import Read.Domain.ResponseDto.UserConfirmDto;
 import Read.Domain.ResponseDto.UserResponseDto;
 import Read.Domain.User.AddressDto;
 import Read.Domain.User.User;
@@ -67,12 +68,13 @@ public class UserController {
 
     @RequestMapping(value = "confirm",method=RequestMethod.POST)
     @ApiOperation(value="사용자 가입 여부 확인",notes="회원이 등록되어있는지 확인 하기 위한 api(결과 status가 0이면 주소랑 이름등 입력해야한다.) ")
-    public @ResponseBody  ResponseDto confirm(@ApiParam(value = "kakao id 값,프로필url,프로필명") @RequestBody UserConfirmRequestDto userConfirmRequestDto){
+    public @ResponseBody
+    UserConfirmDto confirm(@ApiParam(value = "kakao id 값,프로필url,프로필명") @RequestBody UserConfirmRequestDto userConfirmRequestDto){
                 try {
                     return userService.confirmUser(userConfirmRequestDto);
                 }catch (Exception e){
                     logger.info("api/v1/user/confirm error :"+e.getMessage());
-                    return ResponseDto.ofFail(e.getMessage());
+                    return UserConfirmDto.ofFail(e.getMessage());
                 }
     }
 

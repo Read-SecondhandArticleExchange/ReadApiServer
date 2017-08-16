@@ -2,6 +2,7 @@ package Read.Domain.ResponseDto;
 
 import Read.Domain.Book.Book;
 import Read.Domain.EBook.SearchBook;
+import Read.Domain.Log.LogBookDto;
 import Read.Domain.Log.LogStatusByUserIdDto;
 import lombok.Builder;
 import lombok.Getter;
@@ -17,7 +18,7 @@ import java.util.List;
 @Builder
 public class ReadBookResponseDto {
     LogStatusByUserIdDto logStatusByUserIdDto;
-    List<Book> bookList;
+    List<LogBookDto> bookList;
 
     public static ReadBookResponseDto ofSuccess(LogStatusByUserIdDto logStatusByUserIdDto,List bookList){
         return ReadBookResponseDto.builder()
