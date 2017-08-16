@@ -7,6 +7,7 @@ import Read.Domain.ResponseDto.UserConfirmDto;
 import Read.Domain.ResponseDto.UserResponseDto;
 import Read.GeoCoding;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.ibatis.session.SqlSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +29,6 @@ public class UserServiceImpl implements UserService{
 
     @Autowired
     private UserMapper userMapper;
-
 
     @Autowired
     private GeoCoding geoCoding;
