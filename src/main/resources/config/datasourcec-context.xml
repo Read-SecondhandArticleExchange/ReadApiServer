@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns:util="http://www.springframework.org/schema/util"
-       xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans
-       http://www.springframework.org/schema/beans/spring-beans.xsd
-       http://www.springframework.org/schema/context
-      http://www.springframework.org/schema/context/spring-context-3.2.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx" xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.1.xsd
+        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.1.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
 
     <context:property-placeholder location="classpath:properties/dbInfomation.properties" />
@@ -17,6 +16,20 @@
         <property name="url" value="${db.url}"/>
         <property name="username" value="${db.username}"/>
         <property name="password" value="${db.password}"/>
+        <property name="removeAbandoned" value="true"/>
+        <property name="removeAbandonedTimeout" value="30"/>
+        <property name="logAbandoned" value="true"/>
+        <property name="initialSize" value="100"/>
+        <property name="maxActive" value="150"/>
+        <property name="maxWait" value="10000"/>
+        <!--<property name="maxIdle" value = "30"/>
+        <property name="minIdle" value="20"/> -->
+        <property name="validationQuery" value="select 1 from dual"/>
+        <property name="testWhileIdle" value="true" />
+        <property name="timeBetweenEvictionRunsMillis" value="130000" />
+        <property name="minEvictableIdleTimeMillis" value="120000" />
+        <property name="numTestsPerEvictionRun" value="20" />
+        <property name="loginTimeout" value="3000"/>
     </bean>
 
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
@@ -32,4 +45,34 @@
         <property name="basePackage" value="Read"/>
         <property name="annotationClass" value="org.springframework.stereotype.Repository"/>
     </bean>
+
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+
+    <tx:advice id="txAdvice" transaction-manager="transactionManager">
+        <!--
+            트랜잭션이 실행될 메소드들..
+            Rollback이 되는 조건을 정의.
+            RuntimeException이 발생했을 때만 롤백해준다.
+         -->
+        <tx:attributes>
+            <tx:method name="**" rollback-for="RuntimeException"/>
+        </tx:attributes>
+    </tx:advice>
+
+    <aop:config>
+        <!--
+            트랜잭션을 어디서 걸 것인지 정의한다.
+            com.ktds 아래의 service 라는 패키지 중 모든 클래스의 메소드들을 대상으로 트랜잭션을 걸겠다고 정의함.
+        -->
+        <aop:pointcut expression="execution(public * Read..*serviceImpl.*(..))" id="servicePublicMethod"/>
+
+        <!--
+            aop:around와 같은 속성으로
+            <tx:advice id="txAdvice" 여기에 정의된
+            메소드들을 상대로 트랜잭션을 걸겠다고 정의함.
+         -->
+        <aop:advisor advice-ref="txAdvice" pointcut-ref="servicePublicMethod"/>
+    </aop:config>
 </beans>
