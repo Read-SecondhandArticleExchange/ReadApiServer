@@ -33,6 +33,9 @@ public class UserServiceImpl implements UserService{
     @Autowired
     private GeoCoding geoCoding;
 
+    @Autowired
+    private  LogMapper logMapper;
+
     @Override
     public List<User> selectAll(){
         return userMapper.selectAll();
@@ -41,8 +44,7 @@ public class UserServiceImpl implements UserService{
     @Transactional(readOnly = true)
     @Override
     public UserResponseDto searchUser(Long userId){
-        //return UserResponseDto.of(userMapper.selectById(userId),logMapper.selectByUserId(userId));
-        return null;
+        return UserResponseDto.of(MyPageDto.of(userMapper.selectById(userId)),logMapper.selectByUser(userId));
     }
 
 

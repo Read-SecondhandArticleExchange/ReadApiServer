@@ -81,7 +81,8 @@ public class BookServiceImpl implements BookService{
     public String request(String isbn, Long userId){
         Log log = logService.selectByIsbn(isbn);
         User user = userService.findOne(userId);
-        System.out.println(user.toString());
+        //mapper 에서 book_point를 매핑 못해줘서 bookpoint null이 계속 나옴
+        // UserMapper selectById 이 부분 수정 함
         if(user.getBookPoint()==0){
             return "포인트 부족";}
         logService.updateByRequest(log);
