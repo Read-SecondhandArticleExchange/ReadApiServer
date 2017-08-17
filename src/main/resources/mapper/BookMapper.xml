@@ -14,7 +14,7 @@
     </insert>
 
     <select id="detailBook" parameterType="java.lang.String" resultType="Read.Domain.Book.DetailBookInfo">
-        SELECT cover_url AS coverUrl, title, publisher, author, publication
+        SELECT book_number AS bookId, cover_url AS coverUrl, title, publisher, author, publication
         FROM read.Book
         WHERE bookId = #{bookId}
     </select>

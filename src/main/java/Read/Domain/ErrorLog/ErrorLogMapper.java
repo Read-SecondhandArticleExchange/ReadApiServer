@@ -1,5 +1,6 @@
 package Read.Domain.ErrorLog;
 
+import org.mapstruct.Mapper;
 import org.springframework.stereotype.Repository;
 
 /**

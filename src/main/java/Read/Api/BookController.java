@@ -59,13 +59,13 @@ public class BookController {
             @ApiParam(value="유저 아이디")
             @RequestParam("userId") Long userId,
             @ApiParam(value="주소 정보 저장 유무")
-            @RequestParam("check") boolean check,
+            @RequestParam(value = "check", defaultValue = "false") boolean check,
             @ApiParam("address")
-            @RequestParam("address") String address,
+            @RequestParam(value = "address", required=false) String address ,
             @ApiParam("postCode")
-            @RequestParam("postCode") Long postCode,
+            @RequestParam(value = "postCode",required=false) Long postCode,
             @ApiParam("detailAddress")
-            @RequestParam("detailAddress") String detailAddress){
+            @RequestParam(value = "detailAddress",required=false) String detailAddress){
         logger.info("BookController insert Method");
         try{
             if(check)

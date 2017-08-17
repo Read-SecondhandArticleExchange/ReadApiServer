@@ -6,6 +6,7 @@ import Read.Domain.ResponseDto.MyBookLogResponseDto;
 import Read.Domain.User.User;
 import Read.Domain.User.UserCreateDto;
 import org.apache.ibatis.annotations.Param;
+import org.mapstruct.Mapper;
 import org.springframework.stereotype.Repository;
 
 import java.util.HashMap;
@@ -14,7 +15,7 @@ import java.util.List;
 /**
  * Created by iljun on 2017-07-13.
  */
-@Repository("LogMapper")
+@Repository
 public interface LogMapper {
 
     LogStatusByUserIdDto LogStatusByUserId(Long id);
