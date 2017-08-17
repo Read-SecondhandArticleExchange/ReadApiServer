@@ -10,6 +10,7 @@ import lombok.Setter;
 @Setter
 public class DetailBookInfo {
 
+    private String bookId;
     private String title;
     private String coverUrl;
     private String publisher;

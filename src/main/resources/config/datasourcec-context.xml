@@ -29,7 +29,7 @@
         <property name="timeBetweenEvictionRunsMillis" value="130000" />
         <property name="minEvictableIdleTimeMillis" value="120000" />
         <property name="numTestsPerEvictionRun" value="20" />
-        <property name="loginTimeout" value="3000"/>
+        <!--<property name="loginTimeout" value="3000"/>-->
     </bean>
 
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">

@@ -59,7 +59,7 @@ public class BookController {
             @ApiParam(value="유저 아이디")
             @RequestParam("userId") Long userId,
             @ApiParam(value="주소 정보 저장 유무")
-            @RequestParam("check") boolean check,
+            @RequestParam(value = "check", defaultValue = "false") boolean check,
             @ApiParam("address")
             @RequestParam(value = "address", required=false) String address ,
             @ApiParam("postCode")

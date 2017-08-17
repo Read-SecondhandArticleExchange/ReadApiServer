@@ -12,7 +12,7 @@ import java.util.List;
 /**
  * Created by iljun on 2017-07-06.
  */
-@Repository("UserMapper")
+@Repository
 public interface UserMapper {
     List<User> selectAll();
     User selectById(Long userId);
