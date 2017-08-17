@@ -1,10 +1,7 @@
 package Read.Domain.User;
 
 import Read.Domain.Log.LogMapper;
-import Read.Domain.ResponseDto.RequestUser;
-import Read.Domain.ResponseDto.ResponseDto;
-import Read.Domain.ResponseDto.UserConfirmDto;
-import Read.Domain.ResponseDto.UserResponseDto;
+import Read.Domain.ResponseDto.*;
 import Read.GeoCoding;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.session.SqlSession;
@@ -25,7 +22,7 @@ import java.util.List;
 @Slf4j
 public class UserServiceImpl implements UserService{
 
-    private static final Logger logget = LoggerFactory.getLogger(UserServiceImpl.class);
+    private static final Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
 
     @Autowired
     private UserMapper userMapper;
@@ -105,5 +102,18 @@ public class UserServiceImpl implements UserService{
     public void update(Long userId, String name, String address, String phoneNumber, Long postCode, String detailAddress) throws Exception{
             Float [] cords = geoCoding.geoCoding(address+detailAddress);
             userMapper.update(userId, name, address, phoneNumber,(double)cords[0],(double)cords[1],postCode,detailAddress);
+    }
+
+    @Override
+    public MyInfoDto myInfo(Long userId){
+        return userMapper.myInfo(userId);
+    }
+
+    @Override
+    public void myInfoUpdate(MyInfoDto myInfoDto) throws Exception{
+        Float [] cords = geoCoding.geoCoding(myInfoDto.getAddress() + myInfoDto.getDetailAddress());
+        logger.info("temp : " + cords[0]);
+        logger.info("temp : " + cords[1]);
+        userMapper.myInfoUpdate(UserUpdateDto.of(myInfoDto,(double)cords[0],(double)cords[1]));
     }
 }

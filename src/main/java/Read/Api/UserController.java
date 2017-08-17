@@ -1,5 +1,6 @@
 package Read.Api;
 
+import Read.Domain.ResponseDto.MyInfoDto;
 import Read.Domain.ResponseDto.ResponseDto;
 import Read.Domain.ResponseDto.UserConfirmDto;
 import Read.Domain.ResponseDto.UserResponseDto;
@@ -88,5 +89,30 @@ public class UserController {
             return ResponseDto.ofFail(e.getMessage());
         }
 
+    }
+
+    @RequestMapping(value = "myInfo", method = RequestMethod.GET)
+    @ApiOperation(value = "내 정보", notes = "내 정보")
+    public MyInfoDto myInfo(@ApiParam(value = "유저 id")
+                            @RequestParam("userId") Long userId){
+        try{
+            return userService.myInfo(userId);
+        }catch(Exception e){
+            logger.error("api/v1/user/myInfo error : " + e.getMessage());
+        }
+        return null;
+    }
+
+    @RequestMapping(value = "myInfo", method = RequestMethod.POST)
+    @ApiOperation(value = "내 정보 수정", notes = "내 정보 수정")
+    public ResponseDto myInfo(@ApiParam(value = "myInfoDto")
+                              @RequestBody MyInfoDto myInfoDto){
+        try{
+            userService.myInfoUpdate(myInfoDto);
+            return ResponseDto.ofSuccess("정보 수정 성공");
+        }catch(Exception e){
+            logger.error("api/v1/user/myInfo error : " + e.getMessage());
+        }
+        return ResponseDto.ofFail("정보 수정 실패");
     }
 }
