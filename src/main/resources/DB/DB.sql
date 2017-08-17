@@ -25,7 +25,8 @@ CREATE TABLE read.Book(
   `category` varchar(50) Not Null,
   `cover_url` varchar(200) Not Null,
   `isbn` varchar(100) Not Null,
-  `publication` varchar(100)
+  `publication` varchar(100),
+  `book_number` varchar(100) not NULL
 );
 
 DROP TABLE IF EXISTS read.Log;
@@ -61,6 +62,52 @@ begin
 	SET @id:=UUID();
     INSERT INTO read.Book(bookId, author, translator, publisher, title, category, cover_url, isbn)
     VALUES(@id,author,translator, publisher, title, category, cover_url, isbn);
+
+    SET @address = (SELECT address FROM read.User u WHERE u.userId=userId);
+
+    INSERT INTO read.Log(userId,bookId,status,address,latitude,longitude,latest)
+    VALUES(userId, @id, 1,@address, latitude, longitude, now());
+
+    UPDATE read.User
+    SET
+      book_point= book_point+1
+    WHERE
+      userId=@userId;
+end $$
+DELIMITER ;
+
+
+DROP PROCEDURE IF EXISTS read.bookInsert;
+
+DELIMITER $$
+CREATE PROCEDURE read.bookInsert(userId bigint(20),author varchar(50),translator varchar(50), publisher varchar(100), title varchar(100), category varchar(50), cover_url varchar(200), isbn varchar(100), latitude double, longitude double)
+begin
+	SET @id:=UUID();
+    SET @bnumber:='#000000';
+    SELECT @bnumber:=book_number
+    from read.Book b
+    where b.isbn=isbn
+    order by book_number desc
+    limit 1;
+
+	if STRCMP(@bnumber,'#000000')=0 then
+		set @bnumber:='#000001';
+        select @bnumber as test;
+		INSERT INTO read.Book(bookId,book_number, author, translator, publisher, title, category, cover_url, isbn)
+		VALUES(@id,@bnumber,author,translator, publisher, title, category, cover_url, isbn);
+	else
+		set @bnumber:=substring(@bnumber,2,7);
+        set @bnumber1:=@bnumber+1;
+        set @i:=0;
+
+        while @i <6-length(@bnumber1) do
+			SET @bnumber1:=CONCAT('0',@bnumber1);
+		end while;
+        SET @bnumber1:=CONCAT('#',@bnumber1);
+        select @bnumber1;
+        INSERT INTO read.Book(bookId,book_number ,author, translator, publisher, title, category, cover_url, isbn)
+		VALUES(@id,@bnumber1,author,translator, publisher, title, category, cover_url, isbn);
+	end if;
 
     SET @address = (SELECT address FROM read.User u WHERE u.userId=userId);
 

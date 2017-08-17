@@ -19,6 +19,7 @@ import java.util.List;
 public interface LogMapper {
 
     LogStatusByUserIdDto LogStatusByUserId(Long id);
+    List<Log> selectByUser(long id);
     List<Book> selectByUserId(long id);
     List<Book> selectByStatusIdAndUserId(HashMap<String, Long> map);
     List<MyBookLogResponseDto> myBookLog(Long userId);
