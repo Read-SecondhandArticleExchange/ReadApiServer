@@ -48,24 +48,23 @@
 	type="text/javascript"></script>
 <script type="text/javascript">
 	WebFont
-		.load({
-			google : {
-				families : [
-					"Ubuntu:300,300italic,400,400italic,500,500italic,700,700italic",
-					"Noto Sans:regular,italic,700,700italic:latin-ext,cyrillic-ext,vietnamese,latin",
-					"Passion One:regular,700,900", "Baloo:regular",
-					"Days One:regular", "Wire One:regular" ]
-			}
-		});
+			.load({
+				google : {
+					families : [
+							"Ubuntu:300,300italic,400,400italic,500,500italic,700,700italic",
+							"Noto Sans:regular,italic,700,700italic:latin-ext,cyrillic-ext,vietnamese,latin",
+							"Passion One:regular,700,900", "Baloo:regular",
+							"Days One:regular", "Wire One:regular" ]
+				}
+			});
 </script>
 <!-- [if lt IE 9]><script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js" type="text/javascript"></script><![endif] -->
 <script type="text/javascript">
 	!function(o, c) {
-		var n = c.documentElement,
-			t = " w-mod-";
+		var n = c.documentElement, t = " w-mod-";
 		n.className += t + "js", ("ontouchstart" in o || o.DocumentTouch
-		&& c instanceof DocumentTouch)
-		&& (n.className += t + "touch")
+				&& c instanceof DocumentTouch)
+				&& (n.className += t + "touch")
 	}(window, document);
 </script>
 <link href="https://daks2k3a4ib2z.cloudfront.net/img/favicon.ico"
@@ -174,12 +173,16 @@
 					<div class="frame" id="slide-frame">
 						<ul class="slidee">
 							<c:forEach items="${bookList}" var="book">
-								<li style="text-align: center;">
+								<li
+									style="text-align: center; padding-top: 5px; padding-left: 10px; padding-right: 10px;">
 									<div style="text-align: left;">
-										<img src="${book.coverUrl }" width="190px">
-										<div style="font-weight: bold;">${book.title }</div>
-										<div>${book.author }</div>
-										<div>${book.publisher }</div>
+										<img src="${book.coverUrl }"
+											style="width: 100%; box-shadow: 0 2px 10px 0 rgba(0, 0, 0, .2);">
+										<div style="margin-top: 10px;">
+											<div style="font-weight: bold;">${book.title }</div>
+											<div>${book.author }</div>
+											<div>${book.publisher }</div>
+										</div>
 									</div>
 								</li>
 							</c:forEach>
@@ -297,20 +300,21 @@
 									<form class="form" data-name="Email Form" id="email-form"
 										name="email-form">
 										<input class="contacttextfield w-input" data-name="Name 2"
-											id="name-2" maxlength="256" name="name-2"
+											id="mailName" maxlength="256" name="name-2"
 											placeholder="Enter your name" type="text"><input
 											class="contacttextfield w-input" data-name="Email 4"
-											id="email-4" maxlength="256" name="email-4"
+											id="mailAddress" maxlength="256" name="email-4"
 											placeholder="Enter your email" required="required"
 											type="email"><input class="contacttextfield w-input"
-											data-name="Email 3" id="email-3" maxlength="256"
+											data-name="Email 3" id="mailMobile" maxlength="256"
 											name="email-3" placeholder="Enter your Mobile"
 											required="required" type="text">
 										<textarea class="textarea w-input" data-name="Content 2"
-											id="Content-2" maxlength="5000" name="Content-2"
+											id="mailContent" maxlength="5000" name="Content-2"
 											placeholder="Content"></textarea>
 										<input class="submit-button w-button"
-											data-wait="Please wait..." type="submit" value="Send">
+											data-wait="Please wait..." type="button" value="Send"
+											onclick="mailSend(this)">
 									</form>
 									<div class="w-form-done">
 										<div>Thank you! Your submission has been received!</div>
@@ -387,7 +391,7 @@
 			easing : 'easeOutExpo',
 			dragHandle : 1,
 			dynamicHandle : 1,
-	
+
 			cycleBy : 'pages',
 			cycleInterval : 3000,
 			pauseOnHover : 1
@@ -396,7 +400,8 @@
 		var container = document.getElementById('map'); //지도를 담을 영역의 DOM 레퍼런스
 		var options = { //지도를 생성할 때 필요한 기본 옵션
 			center : new daum.maps.LatLng(37.504074, 127.038064), //지도의 중심좌표.
-			level : 4 //지도의 레벨(확대, 축소 정도)
+			level : 4
+		//지도의 레벨(확대, 축소 정도)
 		};
 		var map = new daum.maps.Map(container, options); //지도 생성 및 객체 리턴
 		// 마커가 표시될 위치입니다 
@@ -407,6 +412,25 @@
 		});
 		// 마커가 지도 위에 표시되도록 설정합니다
 		marker.setMap(map);
+
+		function mailSend(obj) {
+			$.ajax({
+				type : "POST",
+				url : '${pageContext.request.contextPath}/mailSend',
+				data : {
+					name: $('#mailName').val(),
+					address: $('#mailAddress').val(),
+					phone: $('#mailMobile').val(),
+					contents: $('#mailContent').val()
+				},
+				success : function(data) {
+					console.log(data);
+				},
+				error : function(e) {
+					alert(e.responseText);
+				}
+			});
+		}
 	</script>
 	<!-- [if lte IE 9]><script src="https://cdnjs.cloudflare.com/ajax/libs/placeholders/3.0.2/placeholders.min.js"></script><![endif] -->
 </body>

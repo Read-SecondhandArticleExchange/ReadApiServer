@@ -10,5 +10,7 @@ public interface MainService {
 
 	ArrayList<Book> getRecentBookList();
 
+	void sendMail(String address, String name, String phone, String contents) throws Exception;
+
 
 }
