@@ -48,7 +48,7 @@
     </select>
 
     <select id="detailBookLogList" parameterType="java.lang.String" resultType="Read.Domain.Log.LogUser">
-        SELECT u.nickName, l.latest, u.profile_url AS profileUrl
+        SELECT u.nickName, l.latest, u.profile_url AS profileUrl, u.address
         FROM read.Log l JOIN read.User u
         ON l.userId = u.userId
         WHERE l.bookId = #{bookId}

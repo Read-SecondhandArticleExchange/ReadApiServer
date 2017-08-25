@@ -12,4 +12,5 @@ public class LogUser {
     private String nickName;
     private String profileUrl;
     private String latest;
+    private String address;
 }

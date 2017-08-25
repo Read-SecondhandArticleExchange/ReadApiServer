@@ -16,4 +16,5 @@ public class DetailBookInfo {
     private String publisher;
     private String author;
     private String publication;
+    private String category;
 }
