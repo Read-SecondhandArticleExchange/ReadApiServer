@@ -10,11 +10,11 @@
     </select>
 
     <insert id="insert" parameterType="Read.Domain.Book.InsertDto">
-      CALL read.bookInsert(#{userId},#{author},#{translator},#{publisher},#{title},#{category},#{coverUrl},#{isbn},#{latitude},#{longitude})
+      CALL read.bookInsert(#{userId},#{author},#{translator},#{publisher},#{title},#{category},#{coverUrl},#{isbn},#{latitude},#{longitude},#{publication})
     </insert>
 
     <select id="detailBook" parameterType="java.lang.String" resultType="Read.Domain.Book.DetailBookInfo">
-        SELECT book_number AS bookId, cover_url AS coverUrl, title, publisher, author, publication
+        SELECT book_number AS bookId, cover_url AS coverUrl, title, publisher, author, publication, category
         FROM read.Book
         WHERE bookId = #{bookId}
     </select>

@@ -80,10 +80,11 @@ DELIMITER ;
 DROP PROCEDURE IF EXISTS read.bookInsert;
 
 DELIMITER $$
-CREATE PROCEDURE read.bookInsert(userId bigint(20),author varchar(50),translator varchar(50), publisher varchar(100), title varchar(100), category varchar(50), cover_url varchar(200), isbn varchar(100), latitude double, longitude double)
+CREATE PROCEDURE read.bookInsert(userId bigint(20),author varchar(50),translator varchar(50), publisher varchar(100), title varchar(100), category varchar(50), cover_url varchar(200), isbn varchar(100), latitude double, longitude double, publication varchar(100))
 begin
 	SET @id:=UUID();
     SET @bnumber:='#000000';
+
     SELECT @bnumber:=book_number
     from read.Book b
     where b.isbn=isbn
@@ -93,8 +94,8 @@ begin
 	if STRCMP(@bnumber,'#000000')=0 then
 		set @bnumber:='#000001';
         select @bnumber as test;
-		INSERT INTO read.Book(bookId,book_number, author, translator, publisher, title, category, cover_url, isbn)
-		VALUES(@id,@bnumber,author,translator, publisher, title, category, cover_url, isbn);
+		INSERT INTO read.Book(bookId,book_number, author, translator, publisher, title, category, cover_url, isbn, publication)
+		VALUES(@id,@bnumber,author,translator, publisher, title, category, cover_url, isbn, publication);
 	else
 		set @bnumber:=substring(@bnumber,2,7);
         set @bnumber1:=@bnumber+1;
@@ -105,8 +106,8 @@ begin
 		end while;
         SET @bnumber1:=CONCAT('#',@bnumber1);
         select @bnumber1;
-        INSERT INTO read.Book(bookId,book_number ,author, translator, publisher, title, category, cover_url, isbn)
-		VALUES(@id,@bnumber1,author,translator, publisher, title, category, cover_url, isbn);
+        INSERT INTO read.Book(bookId,book_number ,author, translator, publisher, title, category, cover_url, isbn, publication)
+		    VALUES(@id,@bnumber1,author,translator, publisher, title, category, cover_url, isbn, publication);
 	end if;
 
     SET @address = (SELECT address FROM read.User u WHERE u.userId=userId);
