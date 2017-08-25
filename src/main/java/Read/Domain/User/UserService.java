@@ -1,9 +1,6 @@
 package Read.Domain.User;
 
-import Read.Domain.ResponseDto.RequestUser;
-import Read.Domain.ResponseDto.ResponseDto;
-import Read.Domain.ResponseDto.UserConfirmDto;
-import Read.Domain.ResponseDto.UserResponseDto;
+import Read.Domain.ResponseDto.*;
 
 import java.util.List;
 
@@ -23,4 +20,7 @@ public interface UserService {
 
     RequestUser requestUser(Long userId);
     void update(Long userId, String name, String address, String phoneNumber,Long postCode, String detailAddress) throws Exception;
+
+    MyInfoDto myInfo(Long userId);
+    void myInfoUpdate(MyInfoDto myInfoDto) throws Exception;
 }

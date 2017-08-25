@@ -8,7 +8,7 @@
     </select>
 
     <select id="selectById" parameterType="java.lang.Long" resultType="Read.Domain.User.User">
-        SELECT *
+        SELECT userId,nickName,profile_url as profileUrl,book_point as bookPoint,longitude,latitude,address,phoneNumber,userName,postcode,detail_address as detailAddress
         FROM read.User
         WHERE userId = #{userId}
     </select>
@@ -71,5 +71,24 @@
           postcode = #{postCode},
           detail_address = #{detailAddress}
         WHERE userId=#{userId}
+    </update>
+
+    <select id="myInfo" resultType="Read.Domain.ResponseDto.MyInfoDto" parameterType="java.lang.Long">
+        SELECT userId, nickName AS name, profile_url AS profileUrl, phoneNumber, address, detail_address AS detailAddress, postcode AS postCode
+        FROM read.User
+        WHERE userId = #{userId}
+    </select>
+
+    <update id="myInfoUpdate" parameterType="Read.Domain.ResponseDto.UserUpdateDto">
+        UPDATE read.User
+        SET
+          nickName = #{name},
+          phoneNumber = #{phoneNumber},
+          address = #{address},
+          detail_address = #{detailAddress},
+          postcode = #{postCode},
+          latitude = #{latitude},
+          longitude = #{longitude}
+        WHERE userId = #{userId}
     </update>
 </mapper>
