@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Read.Domain.Main.MainMapper">
+
+    <select id="getSummary" resultType="Read.Domain.Main.Summary">
+        SELECT 
+			(SELECT count(*) FROM Book) AS accumulateBookCount,
+		    (SELECT count(distinct(isbn)) FROM Book) AS kindOfBook,
+		    (SELECT count(*) FROM Log WHERE status = 2) AS requestPossibleBook
+		FROM dual;
+    </select>
+    
+    <select id="getRecentBookList" resultType="Read.Domain.Book.Book">
+        SELECT 
+		    book.bookId AS bookId,
+		    book.author AS author,
+		    book.translator AS translator,
+		    book.publisher AS publisher,
+		    book.title AS title,
+		    book.category AS category,
+		    book.cover_url AS coverUrl,
+		    book.isbn AS isbn,
+		    book.publication AS publication
+		FROM
+		    Book book,
+		    Log log
+		WHERE
+		    book.bookId = log.bookId 
+		AND status = 2
+		ORDER BY latest
+		LIMIT 20;
+    </select>
+
+</mapper>

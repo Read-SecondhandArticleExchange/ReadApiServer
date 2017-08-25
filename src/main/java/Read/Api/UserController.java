@@ -48,7 +48,7 @@ public class UserController {
         try{
             return userService.searchUser(userId);
         }catch(Exception e){
-            log.error("api/v1/user/search error : " + e.getMessage());
+        	logger.error("api/v1/user/search error : " + e.getMessage());
         }
         return UserResponseDto.ofEmpty();
     }
